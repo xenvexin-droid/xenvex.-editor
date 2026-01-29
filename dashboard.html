@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Xenvex</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome, <span id="userName"></span>!</h2>
+        <button id="openEditor">Open Editor</button>
+        <button id="logout">Logout</button>
+    </div>
+
+    <script>
+        // Get the logged-in user from localStorage
+        const user = JSON.parse(localStorage.getItem('loggedInUser'));
+
+        // Redirect to login if no user is logged in
+        if(!user){
+            window.location.href = "login.html";
+        } else {
+            document.getElementById('userName').textContent = user.name;
+        }
+
+        // Open the editor
+        document.getElementById('openEditor').onclick = () => {
+            window.location.href = "xenvex/index.html";
+        }
+
+        // Logout
+        document.getElementById('logout').onclick = () => {
+            localStorage.removeItem('loggedInUser');
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>
