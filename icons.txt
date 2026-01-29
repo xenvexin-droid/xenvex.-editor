@@ -1,0 +1,4 @@
+edit.png
+delete.png
+upload.png
+download.png

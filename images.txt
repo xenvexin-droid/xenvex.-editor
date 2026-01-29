@@ -1,0 +1,4 @@
+hero-banner.png
+logo.png
+sample1.png
+sample2.png

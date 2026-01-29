@@ -2,50 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xenvex Editor</title>
+    <title>Xenvex – Creative Editing Platform</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Optional basic styling */
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-        }
-        .editor-controls {
-            margin-bottom: 20px;
-        }
-        .editor-controls button, .editor-controls input {
-            margin: 5px;
-            padding: 10px;
-            font-size: 16px;
-        }
-        canvas {
-            border: 2px solid #333;
-        }
-    </style>
 </head>
 <body>
-    <h1>Xenvex Editor</h1>
 
-    <!-- Editor Controls -->
-    <div class="editor-controls">
-        <button id="addText">Add Text</button>
-        <input type="file" id="uploadImage">
+<header class="navbar">
+    <h1 class="logo">Xenvex</h1>
+    <nav>
+        <a href="login.html">Login</a>
+        <a href="signup.html">Sign Up</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
 
-        <!-- Shapes -->
-        <button id="addRect">Rectangle</button>
-        <button id="addCircle">Circle</button>
-        <button id="addTriangle">Triangle</button>
+<section class="hero">
+    <h2>Create. Edit. Inspire.</h2>
+    <p>A modern editing platform for photos & videos</p>
+    <a href="editor.html" class="btn">Start Editing</a>
+</section>
 
-        <!-- Download -->
-        <button id="download">Download PNG</button>
-    </div>
-
-    <!-- Canvas -->
-    <canvas id="canvas" width="800" height="500"></canvas>
-
-    <!-- JS -->
-    <script src="main.js"></script>
+<script src="main.js"></script>
 </body>
 </html>
