@@ -1,15 +1,192 @@
- <div class="hero">
-    <h2>Xenvex Editor</h2>
-    <p>Upload photo or video to start editing</p>
-    
-    <!-- File input -->
-    <input type="file" id="fileInput">
 
-    <!-- Preview image -->
-    <img id="previewImage" src="assets/images/sample1.png" width="300">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xenvex Editor</title>
+<!-- Fabric.js for image editing -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #111;
+        color: #fff;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
 
-    <!-- Preview video -->
-    <video id="previewVideo" src="assets/videos/sample.mp4" controls width="300"></video>
+    h1 {
+        color: #3fffdc;
+        margin-top: 20px;
+    }
+
+    p {
+        color: #ccc;
+        margin-bottom: 20px;
+    }
+
+    input[type="file"] {
+        width: 90%;
+        max-width: 400px;
+        padding: 12px;
+        border-radius: 10px;
+        border: none;
+        background-color: #3fffdc;
+        font-weight: bold;
+        margin-bottom: 20px;
+        cursor: pointer;
+    }
+
+    .editor-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    canvas, video {
+        max-width: 90%;
+        max-height: 400px;
+        margin: 10px 0;
+        border-radius: 10px;
+        background: #000;
+    }
+
+    .toolbar {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 30px;
+    }
+
+    .toolbar button {
+        padding: 10px 15px;
+        border-radius: 10px;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+        background-color: #3fffdc;
+        color: #000;
+        transition: 0.3s;
+    }
+
+    .toolbar button:hover {
+        background-color: #2ac9b0;
+    }
+</style>
+</head>
+<body>
+
+<h1>Xenvex Editor</h1>
+<p>Upload a photo or video to start editing</p>
+
+<div class="editor-container">
+    <input type="file" id="fileInput" accept="image/*,video/*">
+
+    <!-- Photo Canvas -->
+    <canvas id="photoCanvas"></canvas>
+
+    <!-- Video Preview -->
+    <video id="videoPreview" controls style="display:none;"></video>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+        <button onclick="addText()">Add Text</button>
+        <button onclick="rotate()">Rotate</button>
+        <button onclick="flip()">Flip</button>
+        <button onclick="applyFilter()">Grayscale</button>
+        <button onclick="exportFile()">Export</button>
+    </div>
 </div>
 
-<script src="editor.js"></script>
+<script>
+const canvas = new fabric.Canvas('photoCanvas', { preserveObjectStacking: true });
+const fileInput = document.getElementById('fileInput');
+const videoPreview = document.getElementById('videoPreview');
+
+let rotateDeg = 0;
+let flipped = false;
+let currentImage = null;
+
+fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if(!file) return;
+
+    const type = file.type;
+
+    if(type.startsWith('image/')){
+        const reader = new FileReader();
+        reader.onload = function(f){
+            
+            fabric.Image.fromURL(f.target.result, function(img){
+                canvas.clear();
+                canvas.setWidth(400);
+                canvas.setHeight(400);
+                canvas.add(img);
+                img.center();
+                img.set({cornerStyle:'circle', selectable:true});
+                currentImage = img;
+            });
+        }
+        reader.readAsDataURL(file);
+        canvas.getElement().style.display = 'block';
+        videoPreview.style.display = 'none';
+    }
+    else if(type.startsWith('video/')){
+        const url = URL.createObjectURL(file);
+        videoPreview.src = url;
+        videoPreview.style.display = 'block';
+        canvas.getElement().style.display = 'none';
+    }
+});
+
+// Add Text
+function addText(){
+    const text = new fabric.Textbox('Text', { left: 50, top: 50, fill: '#00fff0', fontSize: 24 });
+    canvas.add(text);
+}
+
+// Rotate Image
+function rotate(){
+    if(currentImage){
+        rotateDeg = (rotateDeg + 90) % 360;
+        currentImage.rotate(rotateDeg);
+        canvas.renderAll();
+    }
+}
+
+// Flip Image Horizontally
+function flip(){
+    if(currentImage){
+        flipped = !flipped;
+        currentImage.set('flipX', flipped);
+        canvas.renderAll();
+    }
+}
+
+// Apply Grayscale Filter
+function applyFilter(){
+    if(currentImage){
+        currentImage.filters.push(new fabric.Image.filters.Grayscale());
+        currentImage.applyFilters();
+        canvas.renderAll();
+    }
+}
+
+// Export Image
+function exportFile(){
+    if(canvas.getObjects().length > 0){
+        canvas.getElement().toBlob(function(blob){
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'Xenvex-Image.png';
+            link.click();
+        });
+    } else if(videoPreview.src){
+        alert("Video download requires additional integration (FFmpeg).");
+    }
+}
+</script>
+
+</body>
+</html>
