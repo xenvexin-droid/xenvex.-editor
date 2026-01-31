@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xenvex Editor | Premium Image Editor</title>
+    <title>Xenvex Editor | Image & Video Editing Suite</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -44,7 +44,7 @@
         .editor-header {
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.97) 0%, rgba(30, 41, 59, 0.97) 100%);
             backdrop-filter: blur(15px);
-            padding: 0.8rem 1.2rem;
+            padding: 1.2rem 2.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -53,7 +53,7 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            animation: slideDown 0.45s ease-out;
+            animation: slideDown 0.5s ease-out;
         }
 
         @keyframes slideDown {
@@ -213,38 +213,97 @@
             box-shadow: 0 12px 30px rgba(99, 102, 241, 0.6);
         }
 
-        /* Main Editor Layout */
-        .editor-container {
+        /* Editor Type Selector */
+        .editor-type-selector {
             display: flex;
-            min-height: calc(100vh - 84px);
-            position: relative;
+            justify-content: center;
+            margin: 2rem auto;
+            gap: 1rem;
+            max-width: 600px;
+            animation: fadeIn 0.8s ease-out;
         }
 
-        /* Premium Sidebar */
-        .sidebar {
-            width: 220px;
-            background: linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.9) 100%);
-            backdrop-filter: blur(20px);
-            padding: 1rem 1rem;
-            border-right: 1px solid rgba(99, 102, 241, 0.15);
+        .editor-type-btn {
+            flex: 1;
+            padding: 1.5rem;
+            background: var(--glass);
+            border: 2px solid rgba(99, 102, 241, 0.2);
+            border-radius: 16px;
+            color: var(--gray);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-            overflow-y: auto;
-            animation: slideInLeft 0.45s ease-out;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
 
-        @keyframes slideInLeft {
-            from { transform: translateX(-20px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+        .editor-type-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .editor-type-btn:hover::before {
+            opacity: 1;
+        }
+
+        .editor-type-btn:hover {
+            border-color: var(--primary);
+            color: var(--light);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .editor-type-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.4);
+        }
+
+        .editor-type-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Main Editor Container */
+        .editor-container {
+            display: flex;
+            min-height: calc(100vh - 180px);
+            position: relative;
+            max-width: 1600px;
+            margin: 0 auto;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 320px;
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%);
+            backdrop-filter: blur(20px);
+            padding: 2rem 1.5rem;
+            border-right: 1px solid rgba(99, 102, 241, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            overflow-y: auto;
+            border-radius: 0 24px 24px 0;
         }
 
         .tool-section {
             background: var(--glass);
-            border-radius: 16px;
-            padding: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 20px;
+            padding: 1.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
@@ -266,19 +325,16 @@
         }
 
         .tool-section:hover {
-            transform: translateY(-5px);
+            transform: translateY(-3px);
             border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
-
 
         .section-header {
             display: flex;
             align-items: center;
             gap: 12px;
             margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .section-icon {
@@ -295,13 +351,12 @@
         }
 
         .section-title {
-            font-size: 0.98rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: var(--light);
-            letter-spacing: 0.4px;
+            letter-spacing: 0.5px;
         }
 
-        /* Tool Grid */
         .tool-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -311,14 +366,14 @@
         .tool-card {
             background: rgba(30, 41, 59, 0.7);
             border: 2px solid transparent;
-            border-radius: 12px;
-            padding: 0.8rem 0.4rem;
+            border-radius: 14px;
+            padding: 1.2rem 0.5rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             cursor: pointer;
-            transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
@@ -339,77 +394,71 @@
         .tool-card:hover {
             border-color: var(--primary);
             transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
         }
 
         .tool-card.active {
             background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
             border-color: var(--primary);
-            box-shadow: 0 0 30px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 0 25px rgba(99, 102, 241, 0.4);
         }
 
         .tool-icon {
-            font-size: 1.4rem;
+            font-size: 1.8rem;
             color: var(--primary);
-            transition: all 0.22s;
-            position: relative;
-            z-index: 1;
+            transition: all 0.3s;
         }
 
         .tool-card:hover .tool-icon {
             color: var(--accent);
-            transform: scale(1.12);
+            transform: scale(1.2);
         }
 
         .tool-label {
-            font-size: 0.78rem;
+            font-size: 0.85rem;
             font-weight: 600;
             color: var(--gray);
-            transition: all 0.22s;
-            position: relative;
-            z-index: 1;
+            transition: all 0.3s;
         }
 
         .tool-card:hover .tool-label {
             color: var(--light);
         }
 
-        /* Canvas Area */
-        .canvas-area {
+        /* Main Editor Area */
+        .editor-area {
             flex: 1;
-            padding: 1.2rem;
+            padding: 2rem;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            animation: fadeIn 0.6s ease-out;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .canvas-wrapper {
+        /* Canvas/Video Area */
+        .media-container {
             width: 100%;
-            max-width: 900px;
-            height: 520px;
+            max-width: 1000px;
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.8));
-            border-radius: 18px;
+            border-radius: 24px;
             overflow: hidden;
             box-shadow: var(--shadow);
             border: 1px solid rgba(99, 102, 241, 0.3);
             position: relative;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
         }
 
-        .canvas-overlay {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            z-index: 2;
-            border-radius: 24px;
-            box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.2);
+        .canvas-container {
+            width: 100%;
+            height: 500px;
+            background: var(--dark);
+            position: relative;
+            display: none;
+        }
+
+        .canvas-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
         }
 
         #editorCanvas {
@@ -417,9 +466,129 @@
             height: 100%;
             display: block;
             cursor: crosshair;
-            background: var(--dark);
         }
 
+        /* Video Player */
+        .video-player-container {
+            width: 100%;
+            height: 500px;
+            background: #000;
+            position: relative;
+            display: none;
+            border-radius: 24px;
+            overflow: hidden;
+        }
+
+        .video-player-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        #videoPlayer {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .video-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .video-timeline {
+            flex: 1;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .video-progress {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .video-time {
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 500;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .video-control-btn {
+            width: 44px;
+            height: 44px;
+            background: var(--primary);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .video-control-btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.1);
+        }
+
+        /* Upload Drop Zone */
+        .upload-drop-zone {
+            position: absolute;
+            inset: 20px;
+            border: 3px dashed rgba(99, 102, 241, 0.4);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 10;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .upload-drop-zone.active {
+            opacity: 1;
+            pointer-events: all;
+            border-color: var(--primary);
+            background: rgba(15, 23, 42, 0.95);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .upload-drop-zone i {
+            font-size: 4.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
 
         /* Control Panel */
         .control-panel {
@@ -431,12 +600,6 @@
             width: 100%;
             max-width: 1000px;
             box-shadow: var(--shadow);
-            animation: slideUp 0.6s ease-out;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
         }
 
         .panel-tabs {
@@ -594,6 +757,51 @@
         @keyframes pulse {
             0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.5); }
             50% { box-shadow: 0 0 30px rgba(99, 102, 241, 0.8); }
+        }
+
+        /* Timeline for Video */
+        .timeline-container {
+            width: 100%;
+            max-width: 1000px;
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            display: none;
+        }
+
+        .timeline-container.active {
+            display: block;
+        }
+
+        .timeline-track {
+            height: 80px;
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 10px;
+            margin-top: 1rem;
+            position: relative;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .timeline-clip {
+            position: absolute;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 8px;
+            cursor: grab;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.8rem;
+            user-select: none;
+        }
+
+        .timeline-clip:active {
+            cursor: grabbing;
         }
 
         /* Custom Inputs */
@@ -829,57 +1037,23 @@
             to { transform: translateY(-5px); }
         }
 
-        /* Right sidebar */
-        .right-sidebar {
-            width: 220px;
-            background: linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.9) 100%);
-            backdrop-filter: blur(20px);
-            padding: 1rem 1rem;
-            border-left: 1px solid rgba(99, 102, 241, 0.15);
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            overflow-y: auto;
-            animation: slideInLeft 0.45s ease-out;
+        /* Media Type Indicator */
+        .media-type-indicator {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            z-index: 5;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
-        /* Left tool controls (shown when editing a tool) */
-        .tool-controls-wrapper { display:flex; flex-direction:column; gap:8px; }
-        .tc-header { display:flex; justify-content:space-between; align-items:center; padding:6px 8px; color:var(--gray); font-weight:700; }
-        .tool-controls {
-            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-            border-radius: 12px;
-            padding: 12px;
-            min-height: 120px;
-            max-height: 420px;
-            overflow-y: auto;
-            border: 1px solid rgba(255,255,255,0.06);
-            color: var(--light);
-            box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-        }
-        .tool-controls.open { animation: popIn 0.18s ease; }
-        .tool-controls.flash { box-shadow: 0 0 0 3px rgba(99,102,241,0.12), 0 6px 24px rgba(0,0,0,0.35); border-color: var(--primary); }
-        @keyframes popIn { from { transform: translateY(-6px); opacity:0 } to { transform: translateY(0); opacity:1 } }
-        .tool-controls .control-card { display:block; text-align:left; }
-        .tool-controls label { display:flex; flex-direction:column; gap:6px; margin-bottom:10px; color:var(--gray); font-weight:600; }
-        .tool-controls input[type="text"], .tool-controls input[type="number"], .tool-controls input[type="color"] { width:100%; padding:8px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.05); background:rgba(255,255,255,0.02); color:var(--light); }
-        .tool-controls .tc-actions { display:flex; gap:8px; margin-top:8px; }
-        .tool-controls .tc-empty { color:var(--gray); font-size:0.95rem; padding:8px; }
-        .range-value { margin-left:8px; font-weight:700; color:var(--light); }
-        /* Audio controls inside left panel */
-        .audio-controls .audio-actions { display:flex; gap:8px; margin-bottom:8px; }
-        .audio-controls .audio-actions .action-btn { padding:6px 8px; font-size:0.9rem }
-        .audio-controls .audio-progress { width:100%; height:8px; appearance:none; background:rgba(255,255,255,0.04); border-radius:6px; }
-        .audio-controls .audio-time { font-weight:700; color:var(--light); margin-left:8px; }
-        .audio-controls label { margin-bottom:10px }
-        .tool-controls-wrapper.collapsed .tool-controls { display:none; }
-
-        /* Inline controls removed — using left Controls panel only */
-        @media (max-width: 1200px) {
-            .edit-tools-section > div { flex-direction:column !important; }
-        }
         /* Responsive */
-        @media (max-width: 1200px) { 
+        @media (max-width: 1200px) {
             .editor-container {
                 flex-direction: column;
             }
@@ -889,1161 +1063,852 @@
                 flex-direction: row;
                 overflow-x: auto;
                 padding: 1.5rem;
+                border-radius: 0 0 24px 24px;
             }
-            
-            .tool-section {
-                min-width: 280px;
-            }
-            
-            .canvas-wrapper {
-                height: 500px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .editor-header {
-                padding: 1rem;
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .header-nav {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .user-actions {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .canvas-area {
-                padding: 1.5rem;
-            }
-            
-            .canvas-wrapper {
-                height: 400px;
-            }
-            
-            .control-panel {
-                padding: 1.5rem;
-            }
-            
-            .action-buttons {
-                flex-direction: column;
-                width: 100%;
-            }
-            
-            .action-btn {
-                width: 100%;
-                justify-content: center;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Premium Header -->
-    <header class="editor-header">
-        <div class="logo">
-            <i class="fas fa-magic"></i>
-            <div class="logo-text">Xenvex</div>
+             
+             <!-- Creative Tools -->
+        <div class="tool-section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-paint-brush"></i>
+                </div>
+                <h3 class="section-title">Creative Tools</h3>
+            </div>
+            <div class="tool-grid">
+                <button class="tool-card" data-tool="text">
+                    <i class="fas fa-font tool-icon"></i>
+                    <span class="tool-label">Text</span>
+                </button>
+                <button class="tool-card" data-tool="audio">
+                    <i class="fas fa-music tool-icon"></i>
+                    <span class="tool-label">Audio</span>
+                </button>
+                <button class="tool-card" data-tool="stickers">
+                    <i class="fas fa-sticky-note tool-icon"></i>
+                    <span class="tool-label">Stickers</span>
+                </button>
+                <button class="tool-card" data-tool="shapes">
+                    <i class="fas fa-shapes tool-icon"></i>
+                    <span class="tool-label">Shapes</span>
+                </button>
+                <button class="tool-card" data-tool="effects">
+                    <i class="fas fa-star tool-icon"></i>
+                    <span class="tool-label">Effects</span>
+                </button>
+                <button class="tool-card" data-tool="transitions">
+                    <i class="fas fa-exchange-alt tool-icon"></i>
+                    <span class="tool-label">Transitions</span>
+                </button>
+            </div>
         </div>
-        
-        <div class="user-actions">
-            <button class="export-btn" id="exportBtn">
-                <i class="fas fa-download"></i> Export
+
+        <!-- Video Specific Tools -->
+        <div class="tool-section video-tools">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+                <h3 class="section-title">Video Tools</h3>
+            </div>
+            <div class="tool-grid">
+                <button class="tool-card" data-tool="trim">
+                    <i class="fas fa-cut tool-icon"></i>
+                    <span class="tool-label">Trim</span>
+                </button>
+                <button class="tool-card" data-tool="split">
+                    <i class="fas fa-code-branch tool-icon"></i>
+                    <span class="tool-label">Split</span>
+                </button>
+                <button class="tool-card" data-tool="speed">
+                    <i class="fas fa-tachometer-alt tool-icon"></i>
+                    <span class="tool-label">Speed</span>
+                </button>
+                <button class="tool-card" data-tool="volume">
+                    <i class="fas fa-volume-up tool-icon"></i>
+                    <span class="tool-label">Volume</span>
+                </button>
+                <button class="tool-card" data-tool="subtitle">
+                    <i class="fas fa-closed-captioning tool-icon"></i>
+                    <span class="tool-label">Subtitle</span>
+                </button>
+                <button class="tool-card" data-tool="keyframe">
+                    <i class="fas fa-key tool-icon"></i>
+                    <span class="tool-label">Keyframe</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Editor Area -->
+    <div class="editor-area">
+        <!-- Media Type Indicator -->
+        <div class="media-type-indicator" id="mediaTypeIndicator">
+            Image Editor
+        </div>
+
+        <!-- Media Container -->
+        <div class="media-container">
+            <!-- Image Canvas -->
+            <div class="canvas-container active" id="imageCanvas">
+                <canvas id="editorCanvas"></canvas>
+                <div class="upload-drop-zone" id="imageUploadZone">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Drop Image Here</p>
+                    <p class="hint">or click to browse (PNG, JPG, GIF)</p>
+                </div>
+            </div>
+
+            <!-- Video Player -->
+            <div class="video-player-container" id="videoPlayerContainer">
+                <video id="videoPlayer" controls></video>
+                <div class="upload-drop-zone" id="videoUploadZone">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Drop Video Here</p>
+                    <p class="hint">or click to browse (MP4, WebM, MOV)</p>
+                </div>
+                <div class="video-controls">
+                    <button class="video-control-btn" id="playPauseBtn">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <div class="video-timeline" id="videoTimeline">
+                        <div class="video-progress" id="videoProgress"></div>
+                    </div>
+                    <div class="video-time" id="videoTime">0:00 / 0:00</div>
+                    <button class="video-control-btn" id="volumeBtn">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline (Video Only) -->
+        <div class="timeline-container" id="timelineContainer">
+            <div class="control-header">
+                <div class="control-icon">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <div class="control-title">Timeline</div>
+            </div>
+            <div class="timeline-track" id="timelineTrack">
+                <!-- Timeline clips will be added here -->
+            </div>
+        </div>
+
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <div class="panel-tabs">
+                <button class="tab-btn active" data-panel="ratio">
+                    <i class="fas fa-crop-alt"></i> Aspect Ratio
+                </button>
+                <button class="tab-btn" data-panel="text">
+                    <i class="fas fa-font"></i> Text & Fonts
+                </button>
+                <button class="tab-btn" data-panel="audio">
+                    <i class="fas fa-music"></i> Audio
+                </button>
+                <button class="tab-btn" data-panel="crop">
+                    <i class="fas fa-crop"></i> Crop & Resize
+                </button>
+                <button class="tab-btn" data-panel="effects">
+                    <i class="fas fa-sliders-h"></i> Effects
+                </button>
+                <button class="tab-btn" data-panel="speed">
+                    <i class="fas fa-tachometer-alt"></i> Speed
+                </button>
+                <button class="tab-btn" data-panel="filters">
+                    <i class="fas fa-filter"></i> Filters
+                </button>
+                <button class="tab-btn" data-panel="export">
+                    <i class="fas fa-download"></i> Export
+                </button>
+            </div>
+
+            <!-- Ratio Panel -->
+            <div class="panel-content active" id="ratioPanel">
+                <div class="control-group">
+                    <div class="control-card">
+                        <div class="control-header">
+                            <div class="control-icon">
+                                <i class="fas fa-crop-alt"></i>
+                            </div>
+                            <div class="control-title">Aspect Ratio</div>
+                        </div>
+                        <div class="ratio-grid">
+                            <button class="ratio-btn active" data-ratio="1:1">1:1</button>
+                            <button class="ratio-btn" data-ratio="16:9">16:9</button>
+                            <button class="ratio-btn" data-ratio="4:3">4:3</button>
+                            <button class="ratio-btn" data-ratio="3:2">3:2</button>
+                            <button class="ratio-btn" data-ratio="9:16">9:16</button>
+                            <button class="ratio-btn" data-ratio="custom">Custom</button>
+                        </div>
+                    </div>
+                    <div class="control-card">
+                        <div class="control-header">
+                            <div class="control-icon">
+                                <i class="fas fa-expand-arrows-alt"></i>
+                            </div>
+                            <div class="control-title">Dimensions</div>
+                        </div>
+                        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                            <input type="number" id="widthInput" placeholder="Width" class="custom-input" value="1920">
+                            <input type="number" id="heightInput" placeholder="Height" class="custom-input" value="1080">
+                        </div>
+                        <button class="action-btn action-btn-secondary" id="applyDimensions">
+                            Apply Dimensions
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text & Fonts Panel -->
+            <div class="panel-content" id="textPanel">
+                <div class="control-group">
+                    <div class="control-card">
+                        <div class="control-header">
+                            <div class="control-icon">
+                                <i class="fas fa-font"></i>
+                            </div>
+                            <div class="control-title">Text Content</div>
+                        </div>
+                        <textarea id="textContent" class="custom-input" rows="3" placeholder="Enter text...">Xenvex Editor</textarea>
+                        <div style="display: flex; gap: 10px; margin-top: 15px;">
+                            <input type="color" id="textColor" class="color-picker" value="#ffffff">
+                            <input type="color" id="textBgColor" class="color-picker" value="#000000">
+                        </div>
+                    </div>
+                    <div class="control-card">
+                        <div class="control-header">
+                            <div class="control-icon">
+                                <i class="fas fa-text-height"></i>
+                            </div>
+                            <div class="control-title">Font Settings</div>
+                        </div>
+                        <div class="font-selector">
+                            <button class="font-option" data-font="Montserrat">Montserrat</button>
+                            <button class="font-option" data-font="Poppins">Poppins</button>
+                            <button class="font-option" data-font="Dancing Script">Dancing</button>
+                            <button class="font-option" data-font="Roboto Slab">Roboto</button>
+                            <button class="font-option" data-font="Open Sans">Open Sans</button>
+                            <button class="font-option" data-font="Arial">Arial</button>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <label>Font Size</label>
+                            <input type="range" class="range-slider" id="fontSize" min="12" max="120" value="48">
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-card">
+                        <div class="control-header">
+                            <div class="control-icon">
+                                <i class="fas fa-align-left"></i>
+                            </div>
+                            <div class="control-title">Text Alignment</div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                            <button class="ratio-btn" data-align="left">
+                                <i class="fas fa-align-left"></i>
+                            </button>
+                            <button class="ratio-btn active" data-align="center">
+                                <i class="fas fa-align-center"></i>
+                            </button>
+                            <button class="ratio-btn" data-align="right">
+                                <i class="fas fa-align-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="control-card">
+                        <div class="control-header">
+                            <div class="control-icon">
+                                <i class="fas fa-magic"></i>
+                            </div>
+                            <div class="control-title">Text Effects</div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                            <button class="ratio-btn" data-effect="shadow">
+                                <i class="fas fa-shadow"></i> Shadow
+                            </button>
+                            <button class="ratio-btn" data-effect="outline">
+                                <i class="fas fa-bold"></i> Outline
+                            </button>
+                            <button class="ratio-btn" data-effect="gradient">
+                                <i class="fas fa-fill-drip"></i> Gradient
+                            </button>
+                            <button class="ratio-btn" data-effect="animation">
+                                <i class="fas fa-play-circle"></i> Animate
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Audio Panel -->
+            <div class="panel-content" id="audioPanel">
+                <div class="control-group">
+                    <div class="control-card">
+                        <div class="control-header">
+                            <div class="control-icon">
+                                <i class="fas fa-music"></i>
+                            </div>
+                            <div class="control-title">Audio Track</div>
+                        </div>
+                        <div class="upload-area" onclick="document.getElementById('audioUpload').click()">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click to upload audio file</p>
+                            <p class="hint">MP3, WAV, OGG up to 50MB</p>
+                        </div>
+                        <input type="file" id="audioUpload" accept="audio/*" style="display: none;">
+                        <div class="audio-waveform" id="audioWaveform">
+                            <div class="wave-container" id="waveContainer"></div>
+                        </div>
+                    </div>
+                    <div class="control-card">
+                        <div class="control-header">
+                            <div class="control-icon">
+                                <i class="fas fa-sliders-h"></i>
+                            </div>
+                            <div class="control-title">Audio Controls</div>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label>Volume</label>
+                            <input type="range" class="range-slider" id="volumeControl" min="0" max="100" value="80">
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label>Fade In/Out</label>
+                            <input type="range" class="range-slider" id="fadeControl" min="0" max="5" value="0" step="0.5">
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                            <button class="ratio-btn" id="playAudio">
+                                <i class="fas fa-play"></i> Play
+                            </button>
+                            <button class="ratio-btn" id="stopAudio">
+                                <i class="fas fa-stop"></i> Stop
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Crop & Resize Panel -->
+            <div class="panel-content" id="cropPanel">
+                <div class="control-group">
+                    <div class="control-card">
+                        <div class="control-header">
+                            <div class="control-icon">
+                                <i class="fas fa-crop"></i>
+                            </div>
+                            <div class="control-title">Crop Tool</div>
+                        </div>
+                        <div class="crop-grid">
+                            <button class="crop-option" data-crop="free">
+                                <i class="fas fa-crop-alt"></i> Free
+                            </button>
+                            <button class="crop-option active" data-crop="original">
+                                <i class="fas fa-crop"></i> Original
+                            </button>
+                            <button class="crop-option" data-crop="square">
+                                <i class="fas fa-square"></i> Square
+                            </button>
+                            <button class="crop-option" data-crop="portrait">
+                                <i class="fas fa-mobile-alt"></i> Portrait
+                            </button>
+                            <button class="crop-option" data-crop="landscape">
+                                <i class="fas fa-desktop"></i> Landscape
+                            </button>
+                            <button class="crop-option" data-crop="circle">
+                                <i class="fas fa-circle"></i> Circle
+                            </button>
+                        </div>
+                    </div>
+                    <div class="control-card">
+                        <div class="control-header">
+                            <div class="control-icon">
+                                <i class="fas fa-expand-alt"></i>
+                            </div>
+                            <div class="control-title">Resize & Rotate</div>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label>Scale (%)</label>
+                            <input type="range" class="range-slider" id="scaleControl" min="10" max="300" value="100">
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label>Rotate (degrees)</label>
+                            <input type="range" class="range-slider" id="rotateControl" min="-180" max="180" value="0">
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;">
+                            <button class="ratio-btn" data-rotate="-90">
+                                <i class="fas fa-undo"></i>
+                            </button>
+                            <button class="ratio-btn" data-rotate="-45">
+                                -45°
+                            </button>
+                            <button class="ratio-btn" data-rotate="45">
+                                45°
+                            </button>
+                            <button class="ratio-btn" data-rotate="90">
+                                <i class="fas fa-redo"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Effects Panel -->
+            <div class="panel-content" id="effectsPanel">
+                <div class="control-group">
+                    <div class="control-card">
+                        <div class="control-header">
+                            <div class="control-icon">
+                                <i class="fas fa-sliders-h"></i>
+                            </div>
+                            <div class="control-title">Adjustments</div>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label>Brightness</label>
+                            <input type="range" class="range-slider" id="brightnessControl" min="0" max="200" value="100">
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label>Contrast</label>
+                            <input type="range" class="range-slider" id="contrastControl" min="0" max="200" value="100">
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label>Saturation</label>
+                            <input type="range" class="range-slider" id="saturationControl" min="0" max="200" value="100">
+                        </div>
+                        <div>
+                            <label>Blur</label>
+                            <input type="range" class="range-slider" id="blurControl" min="0" max="20" value="0">
+                        </div>
+                    </div>
+                    <div class="control-card">
+                        <div class="control-header">
+                            <div class="control-icon">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <div class="control-title">Filters & Overlays</div>
+                        </div>
+                        <div class="sticker-grid">
+                            <div class="sticker-item" data-filter="vintage">📻</div>
+                            <div class="sticker-item" data-filter="blackwhite">⚫</div>
+                            <div class="sticker-item" data-filter="warm">🔥</div>
+                            <div class="sticker-item" data-filter="cool">❄️</div>
+                            <div class="sticker-item" data-filter="sepia">🟤</div>
+                            <div class="sticker-item" data-filter="invert">🔄</div>
+                            <div class="sticker-item" data-overlay="vignette">⭕</div>
+                            <div class="sticker-item" data-overlay="grain">🌫️</div>
+                            <div class="sticker-item" data-overlay="lightleak">💡</div>
+                            <div class="sticker-item" data-overlay="dust">✨</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Speed Panel (Video Specific) -->
+            <div class="panel-content" id="speedPanel">
+                <div class="control-group">
+                    <div class="control-card">
+                        <div class="control-header">
+                            <div class="control-icon">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                            <div class="control-title">Playback Speed</div>
+                        </div>
+                        <div class="speed-controls">
+                            <button class="speed-btn" data-speed="0.25">0.25x</button>
+                            <button class="speed-btn" data-speed="0.5">0.5x</button>
+                            <button class="speed-btn active" data-speed="1">1x (Normal)</button>
+                            <button class="speed-btn" data-speed="1.5">1.5x</button>
+                            <button class="speed-btn" data-speed="2">2x</button>
+                            <button class="speed-btn" data-speed="4">4x</button>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <label>Custom Speed</label>
+                            <input type="range" class="range-slider" id="customSpeed" min="0.1" max="10" value="1" step="0.1">
+                            <div style="text-align: center; margin-top: 10px;">
+                                <span id="speedValue">1.0x</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-card">
+                        <div class="control-header">
+                            <div class="control-icon">
+                                <i class="fas fa-forward"></i>
+                            </div>
+                            <div class="control-title">Reverse & Slow Motion</div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px;">
+                            <button class="ratio-btn" id="reverseVideo">
+                                <i class="fas fa-backward"></i> Reverse
+                            </button>
+                            <button class="ratio-btn" id="slowMotion">
+                                <i class="fas fa-snowflake"></i> Slow Mo
+                            </button>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label>Frame Rate</label>
+                            <input type="range" class="range-slider" id="frameRate" min="1" max="60" value="30">
+                            <div style="text-align: center; margin-top: 10px;">
+                                <span id="fpsValue">30 fps</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters Panel -->
+            <div class="panel-content" id="filtersPanel">
+                <div class="control-group">
+                    <div class="control-card">
+                        <div class="control-header">
+                            <div class="control-icon">
+                                <i class="fas fa-filter"></i>
+                            </div>
+                            <div class="control-title">Video Filters</div>
+                        </div>
+                        <div class="sticker-grid">
+                            <div class="sticker-item" data-vfilter="none">None</div>
+                            <div class="sticker-item" data-vfilter="cinematic">🎬</div>
+                            <div class="sticker-item" data-vfilter="drama">🎭</div>
+                            <div class="sticker-item" data-vfilter="noir">🕶️</div>
+                            <div class="sticker-item" data-vfilter="vintage">📼</div>
+                            <div class="sticker-item" data-vfilter="anime">🎨</div>
+                            <div class="sticker-item" data-vfilter="glitch">💾</div>
+                            <div class="sticker-item" data-vfilter="neon">💡</div>
+                            <div class="sticker-item" data-vfilter="retro">📺</div>
+                            <div class="sticker-item" data-vfilter="cyberpunk">🤖</div>
+                        </div>
+                    </div>
+                    <div class="control-card">
+                        <div class="control-header">
+                            <div class="control-icon">
+                                <i class="fas fa-wave-square"></i>
+                            </div>
+                            <div class="control-title">Color Grading</div>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label>Temperature</label>
+                            <input type="range" class="range-slider" id="temperatureControl" min="-100" max="100" value="0">
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label>Tint</label>
+                            <input type="range" class="range-slider" id="tintControl" min="-100" max="100" value="0">
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label>Vibrance</label>
+                            <input type="range" class="range-slider" id="vibranceControl" min="-100" max="100" value="0">
+                        </div>
+                        <div>
+                            <label>Highlights/Shadows</label>
+                            <input type="range" class="range-slider" id="highlightsControl" min="-100" max="100" value="0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Export Panel -->
+            <div class="panel-content" id="exportPanel">
+                <div class="control-group">
+                    <div class="control-card">
+                        <div class="control-header">
+                            <div class="control-icon">
+                                <i class="fas fa-download"></i>
+                            </div>
+                            <div class="control-title">Export Settings</div>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label>Format</label>
+                            <select id="exportFormat" class="custom-input">
+                                <option value="png">PNG (Image)</option>
+                                <option value="jpg">JPEG (Image)</option>
+                                <option value="mp4">MP4 (Video)</option>
+                                <option value="webm">WebM (Video)</option>
+                                <option value="gif">GIF (Animation)</option>
+                            </select>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label>Quality</label>
+                            <input type="range" class="range-slider" id="exportQuality" min="1" max="100" value="90">
+                            <div style="text-align: center; margin-top: 10px;">
+                                <span id="qualityValue">90%</span>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label>Resolution</label>
+                            <select id="exportResolution" class="custom-input">
+                                <option value="original">Original</option>
+                                <option value="4k">4K (3840x2160)</option>
+                                <option value="2k">2K (2560x1440)</option>
+                                <option value="1080p">1080p (1920x1080)</option>
+                                <option value="720p">720p (1280x720)</option>
+                                <option value="480p">480p (854x480)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-card">
+                        <div class="control-header">
+                            <div class="control-icon">
+                                <i class="fas fa-cog"></i>
+                            </div>
+                            <div class="control-title">Advanced Settings</div>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label>Frame Rate (Video)</label>
+                            <select id="exportFps" class="custom-input">
+                                <option value="60">60 fps</option>
+                                <option value="30" selected>30 fps</option>
+                                <option value="24">24 fps (Cinematic)</option>
+                                <option value="15">15 fps</option>
+                            </select>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label>Bitrate (Video)</label>
+                            <select id="exportBitrate" class="custom-input">
+                                <option value="high">High Quality</option>
+                                <option value="medium" selected>Medium Quality</option>
+                                <option value="low">Low Quality</option>
+                                <option value="custom">Custom</option>
+                            </select>
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <label>Include Audio</label>
+                            <input type="checkbox" id="includeAudio" checked style="margin-left: 10px;">
+                        </div>
+                        <button class="action-btn action-btn-primary" id="startExport">
+                            <i class="fas fa-rocket"></i> Start Export
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="action-btn action-btn-primary" id="saveProject">
+                <i class="fas fa-save"></i> Save Project
+            </button>
+            <button class="action-btn action-btn-secondary" id="undoBtn">
+                <i class="fas fa-undo"></i> Undo
+            </button>
+            <button class="action-btn action-btn-secondary" id="redoBtn">
+                <i class="fas fa-redo"></i> Redo
+            </button>
+            <button class="action-btn action-btn-danger" id="resetBtn">
+                <i class="fas fa-trash-alt"></i> Reset All
             </button>
         </div>
-    </header>
-
-    <!-- Notification -->
-    <div class="notification" id="notification">
-        <i class="fas fa-check-circle notification-icon"></i>
-        <span id="notificationText">Action completed successfully!</span>
     </div>
+</div>
 
-    <!-- Main Editor Container -->
-    <div class="editor-container">
-        <!-- Sidebar Tools -->
-        <div class="sidebar">
-            <div class="tool-controls-wrapper">
-                <div class="tc-header"><div style="display:flex;align-items:center;gap:8px"><i class="fas fa-sliders-h" style="color:var(--primary)"></i><strong>Controls</strong></div><button id="tc_toggle" class="action-btn" title="Collapse" style="padding:6px 8px;min-width:36px">—</button></div>
-                <div id="toolControls" class="tool-controls open">
-                    <div class="tc-empty">Select a tool (Text, Resize, Crop, Properties) to see controls here</div>
-                </div>
-            </div>
+<!-- Hidden File Inputs -->
+<input type="file" id="imageUpload" accept="image/*" style="display: none;">
+<input type="file" id="videoUpload" accept="video/*" style="display: none;">
 
-            <div class="tool-section">
-                <div class="section-header"><div class="section-icon"><i class="fas fa-file-import"></i></div><h3 class="section-title">Import</h3></div>
-                <div class="tool-grid"><div class="tool-card" data-tool="image"><i class="fas fa-file-import tool-icon"></i><span class="tool-label">Import Image</span></div><div class="tool-card" data-tool="audio"><i class="fas fa-music tool-icon"></i><span class="tool-label">Import Audio</span></div></div>
-            </div>
-        </div>
+<script>
+    // ========== GLOBAL VARIABLES ==========
+    let currentEditorType = 'image'; // 'image' or 'video'
+    let currentImage = null;
+    let currentVideo = null;
+    let videoPlayer = null;
+    let isPlaying = false;
+    let undoStack = [];
+    let redoStack = [];
+    let audioContext = null;
+    let audioAnalyser = null;
+    let currentAudio = null;
+    
+    // Canvas setup
+    const canvas = document.getElementById('editorCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = 1920;
+    canvas.height = 1080;
 
-        <!-- Canvas Area -->
-        <div class="canvas-area">
-            <div class="canvas-wrapper" id="canvasWrapper">
-                <canvas id="editorCanvas"></canvas>
-                <div class="canvas-overlay" id="canvasOverlay"></div>
+    // ========== INITIALIZATION ==========
+    window.onload = function() {
+        initCanvas();
+        initVideoPlayer();
+        initEventListeners();
+        generateAudioWave();
+        showNotification('Xenvex Editor Ready!', 'success');
+    };
 
+    function initCanvas() {
+        // Draw initial canvas background
+        ctx.fillStyle = '#1e293b';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '48px Montserrat';
+        ctx.textAlign = 'center';
+        ctx.fillText('Upload an Image to Start Editing', canvas.width/2, canvas.height/2);
+    }
 
-            </div>
+    function initVideoPlayer() {
+        videoPlayer = document.getElementById('videoPlayer');
+        // Video event listeners
+        videoPlayer.addEventListener('timeupdate', updateVideoProgress);
+        videoPlayer.addEventListener('loadedmetadata', function() {
+            updateVideoTime();
+            createTimelineClip('Video', 0, videoPlayer.duration);
+        });
+    }
 
-            <!-- Layers moved to right sidebar for compact layout -->
+    // ========== EDITOR TYPE SWITCHING ==========
+    document.querySelectorAll('.editor-type-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const type = this.dataset.type;
+            switchEditorType(type);
+        });
+    });
 
-
-
-
-        </div>
-
-        <div class="right-sidebar">
-            <!-- Import moved to left sidebar to keep preview centered -->
-            <div class="tool-section edit-tools-section">
-                <div class="section-header"><div class="section-icon"><i class="fas fa-sliders-h"></i></div><h3 class="section-title">Edit Tools</h3></div>
-                <div class="tool-grid">
-                    <div class="tool-card" data-tool="select"><i class="fas fa-mouse-pointer tool-icon"></i><span class="tool-label">Select</span></div>
-                    <div class="tool-card" data-tool="text"><i class="fas fa-font tool-icon"></i><span class="tool-label">Text</span></div>
-                    <div class="tool-card" data-tool="properties"><i class="fas fa-sliders-h tool-icon"></i><span class="tool-label">Properties</span></div>
-                    <div class="tool-card" data-tool="music"><i class="fas fa-music tool-icon"></i><span class="tool-label">Music</span></div>
-                    <div class="tool-card" data-tool="crop"><i class="fas fa-crop-alt tool-icon"></i><span class="tool-label">Crop</span></div>
-                    <div class="tool-card" data-tool="resize"><i class="fas fa-expand-alt tool-icon"></i><span class="tool-label">Resize</span></div>
-                    <div class="tool-card" data-tool="rotate"><i class="fas fa-sync-alt tool-icon"></i><span class="tool-label">Rotate</span></div>
-                    <div class="tool-card" data-tool="delete"><i class="fas fa-trash tool-icon"></i><span class="tool-label">Delete</span></div>
-                </div>
-                <!-- Inline controls removed — using left Controls panel only -->
-                <div class="properties-panel" style="display:none;margin-top:14px"><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;color:var(--gray);font-weight:700"><i class="fas fa-cog" style="color:var(--primary)"></i> Properties</div><label style="display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--gray);margin-bottom:8px">Brightness<input type="range" id="brightnessSlider" class="range-slider" min="50" max="150" value="100"></label><label style="display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--gray)">Contrast<input type="range" id="contrastSlider" class="range-slider" min="50" max="150" value="100"></label></div>
-            </div>
-            <div class="tool-section">
-                <div class="section-header"><div class="section-icon"><i class="fas fa-layer-group"></i></div><h3 class="section-title">Layers</h3></div>
-                <div id="layersList" style="display:flex;flex-direction:column;gap:8px;max-height:220px;overflow:auto;padding:8px;">
-                    <!-- layer thumbnails go here -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- hidden file inputs used for images and audio -->
-    <input type="file" id="imageUpload" accept="image/*" style="display:none">
-    <input type="file" id="audioUpload" accept="audio/*" style="display:none">
-
-    <script>
-        // Basic canvas setup
-        const canvas = document.getElementById('editorCanvas');
-        const ctx = canvas.getContext('2d');
-        function setCanvasSize() {
-            // set internal size to 1200x800 and let CSS scale it
-            canvas.width = 1200;
-            canvas.height = 800;
-            redrawBackground();
+    function switchEditorType(type) {
+        currentEditorType = type;
+        
+        // Update UI
+        document.querySelectorAll('.editor-type-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector(`[data-type="${type}"]`).classList.add('active');
+        
+        // Update media type indicator
+        document.getElementById('mediaTypeIndicator').textContent = 
+            type === 'image' ? 'Image Editor' : 'Video Editor';
+        
+        // Show/hide containers
+        const imageCanvas = document.getElementById('imageCanvas');
+        const videoContainer = document.getElementById('videoPlayerContainer');
+        const timeline = document.getElementById('timelineContainer');
+        
+        if (type === 'image') {
+            imageCanvas.classList.add('active');
+            videoContainer.classList.remove('active');
+            timeline.classList.remove('active');
+        } else {
+            imageCanvas.classList.remove('active');
+            videoContainer.classList.add('active');
+            timeline.classList.add('active');
+            showVideoTools();
         }
-        function redrawBackground() {
-            ctx.fillStyle = '#0f172a';
-            ctx.fillRect(0,0,canvas.width,canvas.height);
+        
+        // Update control panels
+        updateControlPanelsForType(type);
+        
+        showNotification(`Switched to ${type} editor`, 'info');
+    }
+
+    function showVideoTools() {
+        document.querySelectorAll('.video-tools').forEach(tool => {
+            tool.style.display = 'block';
+        });
+    }
+
+    function updateControlPanelsForType(type) {
+        const speedPanel = document.getElementById('speedPanel');
+        const filtersPanel = document.getElementById('filtersPanel');
+        
+        if (type === 'video') {
+            speedPanel.style.display = 'block';
+            filtersPanel.style.display = 'block';
+        } else {
+            speedPanel.style.display = 'none';
+            filtersPanel.style.display = 'none';
         }
-        setCanvasSize();
+    }
 
-        // Image & Audio upload flow + tool handlers
-        const imageInput = document.getElementById('imageUpload');
-        const audioInput = document.getElementById('audioUpload');
-        const layersList = document.getElementById('layersList');
-        let layers = [];
-        let layerIdCounter = 0;
-        let brightness = 100;
-        let contrast = 100;
-        let toolEditingLayerId = null; // id of the layer currently being edited in the left controls
+    // ========== UPLOAD FUNCTIONALITY ==========
+    // Image Upload
+    document.getElementById('imageUploadZone').addEventListener('click', () => {
+        document.getElementById('imageUpload').click();
+    });
 
-        // selection & interaction state 🔧
-        let currentTool = null; // 'select', 'text', etc.
-        let selectedLayerId = null;
-        let isDragging = false;
-        let dragOffsetX = 0;
-        let dragOffsetY = 0;
-        // mouse resize state
-        let mouseResizeEnabled = false;
-        let isResizing = false;
-        let resizeStartMouse = null;
-        let resizeStartW = 0;
-        let resizeStartH = 0;
-        let resizeTargetId = null;
-
-        function getMousePos(evt) {
-            const rect = canvas.getBoundingClientRect();
-            const scaleX = canvas.width / rect.width;
-            const scaleY = canvas.height / rect.height;
-            const x = (evt.clientX - rect.left) * scaleX;
-            const y = (evt.clientY - rect.top) * scaleY;
-            return { x, y };
+    document.getElementById('imageUpload').addEventListener('change', function(e) {
+        if (e.target.files[0]) {
+            loadImage(e.target.files[0]);
         }
+    });
 
-        function findLayerAt(x, y) {
-            // iterate top -> bottom
-            for (let i = layers.length - 1; i >= 0; i--) {
-                const layer = layers[i];
-                if (layer.type === 'image') {
-                    // rotation-aware hit test
-                    const cx = layer.x + layer.w / 2;
-                    const cy = layer.y + layer.h / 2;
-                    const dx = x - cx;
-                    const dy = y - cy;
-                    const angle = -(layer.rotation || 0) * Math.PI / 180;
-                    const cos = Math.cos(angle), sin = Math.sin(angle);
-                    const rx = dx * cos - dy * sin;
-                    const ry = dx * sin + dy * cos;
-                    if (rx >= -layer.w/2 && rx <= layer.w/2 && ry >= -layer.h/2 && ry <= layer.h/2) {
-                        return { layer, index: i };
-                    }
-                } else if (layer.type === 'text') {
-                    ctx.save();
-                    ctx.font = (layer.size || 48) + 'px Poppins, Inter, sans-serif';
-                    const metrics = ctx.measureText(layer.text);
-                    const w = metrics.width;
-                    const h = (layer.size || 48);
-                    ctx.restore();
-                    const dx = x - layer.x;
-                    const dy = y - layer.y;
-                    if (dx >= -w/2 && dx <= w/2 && dy >= -h/2 && dy <= h/2) {
-                        return { layer, index: i };
-                    }
+    // Video Upload
+    document.getElementById('videoUploadZone').addEventListener('click', () => {
+        document.getElementById('videoUpload').click();
+    });
+
+    document.getElementById('videoUpload').addEventListener('change', function(e) {
+        if (e.target.files[0]) {
+            loadVideo(e.target.files[0]);
+        }
+    });
+
+    // Drag and drop
+    ['imageUploadZone', 'videoUploadZone'].forEach(id => {
+        const zone = document.getElementById(id);
+        zone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            zone.classList.add('active');
+        });
+        
+        zone.addEventListener('dragleave', () => {
+            zone.classList.remove('active');
+        });
+        
+        zone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            zone.classList.remove('active');
+            const file = e.dataTransfer.files[0];
+            if (file) {
+                if (id === 'imageUploadZone' && file.type.startsWith('image/')) {
+                    loadImage(file);
+                } else if (id === 'videoUploadZone' && file.type.startsWith('video/')) {
+                    loadVideo(file);
                 }
             }
-            return null;
-        }
-
-        function showNotification(text) {
-            const notif = document.getElementById('notification');
-            const notifText = document.getElementById('notificationText');
-            notifText.textContent = text;
-            notif.classList.add('show');
-            setTimeout(() => notif.classList.remove('show'), 2200);
-        }
-
-        // centralized tool-card handler (including image/audio/rotate/resize/crop/delete/text/select)
-        document.querySelectorAll('.tool-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const tool = card.dataset.tool;
-                // update UI active states
-                document.querySelectorAll('.tool-card').forEach(c => c.classList.remove('active'));
-                card.classList.add('active');
-                currentTool = tool;
-                // set cursor for the canvas
-                canvas.style.cursor = (tool === 'select') ? 'move' : (tool === 'text' ? 'text' : 'crosshair');
-
-                switch (tool) {
-                    case 'image':
-                        imageInput.click();
-                        break;
-                    case 'audio':
-                        audioInput.click();
-                        break;
-                    case 'text':
-                        showToolControls('text');
-                        break;
-                    case 'properties': {
-                        const propPanel = document.querySelector('.properties-panel');
-                        if (propPanel) {
-                            propPanel.style.display = (propPanel.style.display === 'block') ? 'none' : 'block';
-                            showNotification('Properties toggled');
-                        }
-                        // open left-panel properties UI as well
-                        showToolControls('properties');
-                        // keep currentTool in properties mode
-                        currentTool = 'properties';
-                        canvas.style.cursor = 'default';
-                        break;
-                    }
-                    case 'select':
-                        showNotification('Select tool active');
-                        break;
-                    case 'rotate':
-                        rotateTopLayer();
-                        break;
-                    case 'resize':
-                        resizeTopLayer();
-                        break;
-                    case 'music':
-                        // open the music editor (shows audio layer chooser)
-                        showToolControls('audio');
-                        showNotification('Music editor opened');
-                        break;
-                    case 'crop':
-                        cropTopLayer();
-                        break;
-                    case 'delete':
-                        deleteTopLayer();
-                        break;
-                    default:
-                        showNotification(tool.charAt(0).toUpperCase() + tool.slice(1) + ' tool');
-                }
-            });
         });
+    });
 
-        // Text layer creation
-        function addTextLayer() {
-            const tcText = document.getElementById('tc_text');
-            // if left-panel inputs are present, use them
-            if (tcText) {
-                const txt = tcText.value.trim();
-                if (!txt) { showNotification('Enter text first'); return; }
-                const size = parseInt(document.getElementById('tc_size').value) || 48;
-                const color = document.getElementById('tc_color').value || '#ffffff';
-                const id = ++layerIdCounter;
-                const layer = { id, type: 'text', text: txt, size, color, x: (canvas.width/2), y: (canvas.height/2) };
-                layers.push(layer);
-                addLayerThumbnail(layer);
-                redrawCanvasFromLayers();
-                // auto-select the newly added text and switch to select tool so the user can move it
-                selectedLayerId = id;
-                currentTool = 'select';
-                document.querySelectorAll('.tool-card').forEach(c => c.classList.remove('active'));
-                const selCard = document.querySelector('.tool-card[data-tool="select"]');
-                if (selCard) selCard.classList.add('active');
-                canvas.style.cursor = 'move';
-                showNotification('Text added');
-                // reset left controls
-                const container = document.getElementById('toolControls');
-                if (container) container.innerHTML = '<div class="tc-empty">Select a tool (Text, Resize, Crop, Properties) to see controls here</div>';
-                toolEditingLayerId = null;
-                return;
-            }
-            // fallback to prompts for older behavior
-            const txt = prompt('Enter text to add:', 'Edit Like A Pro');
-            if (!txt) return;
-            const sizeInput = prompt('Font size in px:', '48');
-            const size = parseInt(sizeInput) || 48;
-            const color = prompt('Text color (hex or named):', '#ffffff') || '#ffffff';
-            const id = ++layerIdCounter;
-            const layer = { id, type: 'text', text: txt, size, color, x: (canvas.width/2), y: (canvas.height/2) };
-            layers.push(layer);
-            addLayerThumbnail(layer);
-            redrawCanvasFromLayers();
-            // auto-select the newly added text and switch to select tool so the user can move it
-            selectedLayerId = id;
-            currentTool = 'select';
-            document.querySelectorAll('.tool-card').forEach(c => c.classList.remove('active'));
-            const selCard = document.querySelector('.tool-card[data-tool="select"]');
-            if (selCard) selCard.classList.add('active');
-            canvas.style.cursor = 'move';
-            showNotification('Text added');
+    function loadImage(file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                currentImage = img;
+                drawImageOnCanvas();
+                saveToUndoStack();
+                showNotification('Image loaded successfully!', 'success');
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function loadVideo(file) {
+        if (!file.type.startsWith('video/')) {
+            showNotification('Please select a video file', 'error');
+            return;
         }
+        
+        const url = URL.createObjectURL(file);
+        videoPlayer.src = url;
+        currentVideo = file;
+        showNotification('Video loaded successfully!', 'success');
+    }
 
-        // dynamic left-panel tool controls
-        function showToolControls(tool, layer) {
-            const left = document.getElementById('toolControls');
-            if (!left) return;
-            // un-collapse left if needed
-            if (left) {
-                const wrapper = left.closest('.tool-controls-wrapper');
-                if (wrapper && wrapper.classList.contains('collapsed')) wrapper.classList.remove('collapsed');
-            }
-            // highlight left
-            if (left) { left.classList.remove('flash'); setTimeout(()=> left.classList.add('flash'), 40); setTimeout(()=> left.classList.remove('flash'), 900); }
-            if (left) left.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            toolEditingLayerId = layer ? layer.id : null;
+    // ========== CANVAS DRAWING ==========
+    function drawImageOnCanvas() {
+        if (!currentImage) return;
+        
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Calculate scaling to fit canvas
+        const scale = Math.min(
+            canvas.width / currentImage.width,
+            canvas.height / currentImage.height
+        );
+        
+        const x = (canvas.width - currentImage.width * scale) / 2;
+        const y = (canvas.height - currentImage.height * scale) / 2;
+        
+        // Draw image
+        ctx.drawImage(currentImage, x, y, 
+            currentImage.width * scale, 
+            currentImage.height * scale);
+    }
 
-            function setContent(container, prefix) {
-                if (!container) return;
-                container.innerHTML = '';
-                if (tool === 'text') {
-                    const txt = (layer && layer.text) ? layer.text.replace(/"/g, '&quot;') : '';
-                    const size = (layer && layer.size) ? layer.size : 48;
-                    const color = (layer && layer.color) ? layer.color : '#ffffff';
-                    container.innerHTML = `<div class="control-card"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;color:var(--gray);font-weight:700"><i class="fas fa-font" style="color:var(--primary)"></i> Text</div><label>Text<input id="${prefix}text" type="text" value="${txt}"></label><label>Size<div style="display:flex;align-items:center;gap:8px"><input id="${prefix}size" type="range" min="8" max="200" value="${size}" class="range-slider"><span id="${prefix}size_val" class="range-value">${size}</span></div></label><label>Color<input id="${prefix}color" type="color" value="${color}"></label><div class="tc-actions"><button id="${prefix}apply" class="action-btn action-btn-primary" style="padding:8px 10px">Apply</button><button id="${prefix}cancel" class="action-btn" style="padding:8px 10px">Close</button></div></div>`;
-                    // live preview for size when editing an existing text layer
-                    const sizeSlider = container.querySelector('#'+prefix+'size');
-                    const sizeVal = container.querySelector('#'+prefix+'size_val');
-                    if (sizeSlider) {
-                        sizeSlider.addEventListener('input', (ev) => {
-                            sizeVal.textContent = ev.target.value;
-                            if (toolEditingLayerId) {
-                                const idx = layers.findIndex(l => l.id === toolEditingLayerId);
-                                if (idx > -1) { layers[idx].size = parseInt(ev.target.value) || 48; redrawCanvasFromLayers(); }
-                            }
-                        });
-                    }
-                    // preserve original size so Cancel can revert
-                    if (toolEditingLayerId) {
-                        const idx = layers.findIndex(l => l.id === toolEditingLayerId);
-                        if (idx > -1) container.dataset.origTextSize = layers[idx].size;
-                    }
-                    container.querySelector('#'+prefix+'apply').addEventListener('click', () => {
-                        const t = container.querySelector('#'+prefix+'text').value.trim();
-                        const s = parseInt(container.querySelector('#'+prefix+'size').value) || 48;
-                        const col = container.querySelector('#'+prefix+'color').value || '#ffffff';
-                        if (!t) { showNotification('Enter text'); return; }
-                        if (toolEditingLayerId) {
-                            const idx = layers.findIndex(l => l.id === toolEditingLayerId);
-                            if (idx > -1) {
-                                layers[idx].text = t; layers[idx].size = s; layers[idx].color = col;
-                                const item = document.querySelector('#layersList [data-id="' + toolEditingLayerId + '"]');
-                                if (item) { const label = item.querySelector('.layer-label'); if (label) label.textContent = t.slice(0,22); }
-                                redrawCanvasFromLayers(); showNotification('Text updated');
-                            }
-                        } else {
-                            const id = ++layerIdCounter;
-                            const layerObj = { id, type: 'text', text: t, size: s, color: col, x: (canvas.width/2), y: (canvas.height/2) };
-                            layers.push(layerObj); addLayerThumbnail(layerObj); redrawCanvasFromLayers(); selectedLayerId = id;
-                            document.querySelectorAll('.tool-card').forEach(c => c.classList.remove('active'));
-                            const selCard = document.querySelector('.tool-card[data-tool="select"]'); if (selCard) selCard.classList.add('active'); currentTool = 'select'; canvas.style.cursor = 'move'; showNotification('Text added');
-                        }
-                        container.innerHTML = '<div class="tc-empty">Select a tool (Text, Resize, Crop, Properties) to see controls here</div>';
-                        toolEditingLayerId = null;
-                    });
-                    container.querySelector('#'+prefix+'cancel').addEventListener('click', () => {
-                        // revert any live changes
-                        if (toolEditingLayerId && container.dataset.origTextSize) {
-                            const idx = layers.findIndex(l => l.id === toolEditingLayerId);
-                            if (idx > -1) { layers[idx].size = parseInt(container.dataset.origTextSize) || 48; redrawCanvasFromLayers(); }
-                        }
-                        container.innerHTML = '<div class="tc-empty">Select a tool (Text, Resize, Crop, Properties) to see controls here</div>'; toolEditingLayerId = null; });
-                } else if (tool === 'properties') {
-                    container.innerHTML = `<div class="control-card"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;color:var(--gray);font-weight:700"><i class="fas fa-cog" style="color:var(--primary)"></i> Properties</div><label>Brightness<input id="${prefix}brightness" type="range" min="50" max="150" value="${brightness}"></label><label>Contrast<input id="${prefix}contrast" type="range" min="50" max="150" value="${contrast}"></label><div class="tc-actions"><button id="${prefix}close_props" class="action-btn" style="padding:8px 10px">Close</button></div></div>`;
-                    container.querySelector('#'+prefix+'brightness').addEventListener('input', (e) => { brightness = e.target.value; redrawCanvasFromLayers(); });
-                    container.querySelector('#'+prefix+'contrast').addEventListener('input', (e) => { contrast = e.target.value; redrawCanvasFromLayers(); });
-                    container.querySelector('#'+prefix+'close_props').addEventListener('click', () => { container.innerHTML = '<div class="tc-empty">Select a tool (Text, Resize, Crop, Properties) to see controls here</div>'; });
-                } else if (tool === 'audio') {
-                    // Audio controls: if no layer provided, show a selector; otherwise show full controls with waveform and remove-segment
-                    const audioLayers = layers.filter(l => l.type === 'audio');
-                    if (!layer) {
-                        // show selector
-                        if (!audioLayers.length) {
-                            container.innerHTML = '<div class="control-card"><div class="tc-empty">No audio layers available. Import audio first.</div></div>';
-                            return;
-                        }
-                        container.innerHTML = `<div class="control-card audio-controls"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;color:var(--gray);font-weight:700"><i class="fas fa-music" style="color:var(--primary)"></i> Choose audio to edit</div><div style="display:flex;gap:8px;margin-bottom:8px"><select id="${prefix}audio_select" style="flex:1;padding:8px;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04)"></select><button id="${prefix}edit_selected" class="action-btn action-btn-primary">Edit</button></div></div>`;
-                        const sel = container.querySelector('#'+prefix+'audio_select');
-                        audioLayers.forEach(aL => { const opt = document.createElement('option'); opt.value = aL.id; opt.textContent = (aL.name || 'Audio') + ' (' + Math.round((aL._duration || 0)) + 's)'; sel.appendChild(opt); });
-                        container.querySelector('#'+prefix+'edit_selected').addEventListener('click', () => { const id = parseInt(sel.value); const chosen = layers.find(l => l.id === id); if (chosen) showToolControls('audio', chosen); });
-                        return;
-                    }
-
-                    container.innerHTML = `<div class="control-card audio-controls"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;color:var(--gray);font-weight:700"><i class="fas fa-music" style="color:var(--primary)"></i> Audio</div>
-                        <canvas id="${prefix}waveform" style="width:100%;height:60px;margin-bottom:8px;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,0.04)"></canvas>
-                        <div class="audio-actions"><button id="${prefix}play" class="action-btn action-btn-primary">Play</button><button id="${prefix}pause" class="action-btn">Pause</button><button id="${prefix}stop" class="action-btn">Stop</button><button id="${prefix}split" class="action-btn">Split at Playhead</button><button id="${prefix}remove_seg" class="action-btn">Remove Segment</button></div>
-                        <label>Volume<div style="display:flex;align-items:center;gap:8px"><input id="${prefix}volume" type="range" min="0" max="100" value="${(layer && layer.volume !== undefined) ? Math.round(layer.volume*100) : 100}" class="range-slider"><span id="${prefix}vol_val" class="range-value">${(layer && layer.volume !== undefined) ? Math.round(layer.volume*100) : 100}</span></div></label>
-                        <label>Seek<div style="display:flex;align-items:center;gap:8px"><input id="${prefix}seek" type="range" min="0" max="1" value="0" step="0.1" class="audio-progress"><span id="${prefix}time_display" class="audio-time">0:00 / 0:00</span></div></label>
-                        <label>Trim Start<div style="display:flex;align-items:center;gap:8px"><input id="${prefix}trim_start" type="range" min="0" max="100" value="0" class="range-slider"><span id="${prefix}trim_start_val" class="range-value">0:00</span></div></label>
-                        <label>Trim End<div style="display:flex;align-items:center;gap:8px"><input id="${prefix}trim_end" type="range" min="0" max="100" value="100" class="range-slider"><span id="${prefix}trim_end_val" class="range-value">0:00</span></div></label>
-                        <div class="tc-actions"><button id="${prefix}apply_audio" class="action-btn action-btn-primary" style="padding:8px 10px">Apply</button><button id="${prefix}close_audio" class="action-btn" style="padding:8px 10px">Close</button></div></div>`;
-
-                    const playBtn = container.querySelector('#'+prefix+'play');
-                    const pauseBtn = container.querySelector('#'+prefix+'pause');
-                    const stopBtn = container.querySelector('#'+prefix+'stop');
-                    const splitBtn = container.querySelector('#'+prefix+'split');
-                    const removeBtn = container.querySelector('#'+prefix+'remove_seg');
-                    const volSlider = container.querySelector('#'+prefix+'volume');
-                    const volVal = container.querySelector('#'+prefix+'vol_val');
-                    const seek = container.querySelector('#'+prefix+'seek');
-                    const timeDisplay = container.querySelector('#'+prefix+'time_display');
-                    const trimStart = container.querySelector('#'+prefix+'trim_start');
-                    const trimStartVal = container.querySelector('#'+prefix+'trim_start_val');
-                    const trimEnd = container.querySelector('#'+prefix+'trim_end');
-                    const trimEndVal = container.querySelector('#'+prefix+'trim_end_val');
-                    const applyBtn = container.querySelector('#'+prefix+'apply_audio');
-                    const closeBtn = container.querySelector('#'+prefix+'close_audio');
-                    const waveCan = container.querySelector('#'+prefix+'waveform');
-
-                    // prepare audio element
-                    if (!layer.audioEl) layer.audioEl = new Audio(layer.src);
-                    const a = layer.audioEl; a.preload = 'metadata';
-                    layer.start = (layer.start !== undefined) ? layer.start : 0;
-                    a.volume = (layer.volume !== undefined) ? layer.volume : 1;
-
-                    // draw waveform if possible
-                    setTimeout(()=>{ try { drawWaveform(layer, waveCan); } catch(e){} }, 10);
-
-                    if (a.readyState >= 1) {
-                        // metadata ready
-                        const dur = a.duration || 0; layer.end = (layer.end !== undefined) ? layer.end : dur;
-                        seek.min = 0; seek.max = dur; seek.step = 0.1; trimStart.min = 0; trimStart.max = 100; trimEnd.min = 0; trimEnd.max = 100;
-                        // set trim sliders to current start/end percentages
-                        trimStart.value = Math.round(((layer.start || 0) / dur) * 100);
-                        trimEnd.value = Math.round(((layer.end || dur) / dur) * 100);
-                        trimStartVal.textContent = formatTime(layer.start);
-                        trimEndVal.textContent = formatTime(layer.end);
-                        // set seek to start
-                        seek.value = layer.start || 0;
-                        timeDisplay.textContent = formatTime(seek.value) + ' / ' + formatTime(dur);
-                    } else {
-                        a.addEventListener('loadedmetadata', () => {
-                            const dur = a.duration || 0; layer.end = (layer.end !== undefined) ? layer.end : dur;
-                            seek.min = 0; seek.max = dur; seek.step = 0.1; trimStart.min = 0; trimStart.max = 100; trimEnd.min = 0; trimEnd.max = 100;
-                            // set trim slider values to represent current start/end
-                            trimStart.value = Math.round(((layer.start || 0) / dur) * 100);
-                            trimEnd.value = Math.round(((layer.end || dur) / dur) * 100);
-                            trimStartVal.textContent = formatTime(layer.start);
-                            trimEndVal.textContent = formatTime(layer.end);
-                            seek.value = layer.start || 0;
-                            timeDisplay.textContent = formatTime(seek.value) + ' / ' + formatTime(dur);
-                            // draw waveform now that duration is known
-                            try { drawWaveform(layer, waveCan); } catch(e){}
-                        });
-                    }
-
-                    // store originals for revert
-                    container.dataset.orig_start = layer.start || 0;
-                    container.dataset.orig_end = layer.end || (layer._duration || 0);
-
-                    // play/pause/stop
-                    playBtn.addEventListener('click', () => {
-                        stopAllAudio();
-                        if (a.currentTime < (layer.start || 0) || a.currentTime >= (layer.end || a.duration)) a.currentTime = layer.start || 0;
-                        a.play();
-                    });
-                    pauseBtn.addEventListener('click', () => { a.pause(); });
-                    stopBtn.addEventListener('click', () => { a.pause(); a.currentTime = layer.start || 0; });
-
-                    // split at playhead
-                    splitBtn.addEventListener('click', () => {
-                        const pos = a.currentTime || 0; if (!isFinite(pos)) { showNotification('No playhead available'); return; }
-                        if (pos <= (layer.start || 0) || pos >= (layer.end || a.duration)) { showNotification('Cannot split at this point'); return; }
-                        splitAudioLayer(layer, pos);
-                        container.innerHTML = '<div class="tc-empty">Select a tool (Text, Resize, Crop, Properties) to see controls here</div>';
-                    });
-
-                    // remove middle segment (uses current trim sliders)
-                    removeBtn.addEventListener('click', () => {
-                        const dur = a.duration || 0; const s = Math.round(((parseFloat(trimStart.value) || 0) / 100) * dur); const e = Math.round(((parseFloat(trimEnd.value) || 100) / 100) * dur);
-                        if (s >= e) { showNotification('Invalid trim range'); return; }
-                        removeSegmentFromAudioLayer(layer, s, e);
-                        container.innerHTML = '<div class="tc-empty">Select a tool (Text, Resize, Crop, Properties) to see controls here</div>';
-                    });
-
-                    // volume
-                    if (volSlider) {
-                        volSlider.addEventListener('input', (ev) => { const v = parseInt(ev.target.value) / 100; volVal.textContent = Math.round(v*100); layer.volume = v; a.volume = v; });
-                    }
-
-                    // seek updates
-                    a.ontimeupdate = () => {
-                        if (seek) seek.value = a.currentTime;
-                        const dur = a.duration || 0; timeDisplay.textContent = formatTime(a.currentTime) + ' / ' + formatTime(dur);
-                        if (layer.end && a.currentTime >= layer.end) { a.pause(); }
-                    };
-                    if (seek) seek.addEventListener('input', (ev) => { a.currentTime = parseFloat(ev.target.value); });
-
-                    // trim sliders in percent of duration (live preview)
-                    trimStart.addEventListener('input', (ev) => {
-                        const p = parseFloat(ev.target.value) / 100; const dur = a.duration || 0; const s = Math.round(dur * p); trimStartVal.textContent = formatTime(s); layer.start = s; if (a.currentTime < s) a.currentTime = s; });
-                    trimEnd.addEventListener('input', (ev) => { const p = parseFloat(ev.target.value) / 100; const dur = a.duration || 0; const e = Math.round(dur * p); trimEndVal.textContent = formatTime(e); layer.end = e; if (a.currentTime > e) a.currentTime = e; });
-
-                    // apply/close
-                    applyBtn.addEventListener('click', () => { /* commit current trimmed values already in layer.start/layer.end */ container.dataset.orig_start = ''; container.dataset.orig_end = ''; showNotification('Audio changes applied'); container.innerHTML = '<div class="tc-empty">Select a tool (Text, Resize, Crop, Properties) to see controls here</div>'; });
-                    closeBtn.addEventListener('click', () => { // revert
-                        layer.start = parseFloat(container.dataset.orig_start) || 0; layer.end = parseFloat(container.dataset.orig_end) || (layer._duration || 0); a.pause(); a.currentTime = layer.start || 0; redrawCanvasFromLayers(); container.innerHTML = '<div class="tc-empty">Select a tool (Text, Resize, Crop, Properties) to see controls here</div>'; });
-
-                } else if (tool === 'resize') {
-                    const pct = 100;
-                    container.innerHTML = `<div class="control-card"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;color:var(--gray);font-weight:700"><i class="fas fa-expand-alt" style="color:var(--primary)"></i> Resize (percent)</div><label>Scale %<div style="display:flex;align-items:center;gap:8px"><input id="${prefix}resize_pct" type="range" min="1" max="300" value="${pct}" class="range-slider"><span id="${prefix}resize_val" class="range-value">${pct}</span></div></label><label style="display:flex;align-items:center;gap:8px"><input id="${prefix}mouse" type="checkbox"> <span style="color:var(--gray);font-weight:600">Use mouse to resize (drag)</span></label><div class="tc-actions"><button id="${prefix}apply_resize" class="action-btn action-btn-primary" style="padding:8px 10px">Apply</button><button id="${prefix}close_resize" class="action-btn" style="padding:8px 10px">Close</button></div></div>`;
-                    const mouseCheck = container.querySelector('#'+prefix+'mouse');
-                    // live preview logic
-                    const resizeSlider = container.querySelector('#'+prefix+'resize_pct');
-                    const resizeVal = container.querySelector('#'+prefix+'resize_val');
-                    const topImg = layer || layers[layers.length - 1];
-                    if (topImg && topImg.type === 'image') {
-                        container.dataset.origW = topImg.w;
-                        container.dataset.origH = topImg.h;
-                    }
-                    if (resizeSlider) {
-                        resizeSlider.addEventListener('input', (ev) => {
-                            resizeVal.textContent = ev.target.value;
-                            const p = parseFloat(ev.target.value) / 100;
-                            if (topImg && topImg.type === 'image' && container.dataset.origW) {
-                                topImg.w = parseFloat(container.dataset.origW) * p;
-                                topImg.h = parseFloat(container.dataset.origH) * p;
-                                redrawCanvasFromLayers();
-                            }
-                        });
-                    }
-                    if (mouseCheck) {
-                        // initialize based on global
-                        mouseCheck.checked = mouseResizeEnabled;
-                        canvas.style.cursor = (mouseResizeEnabled && currentTool === 'resize') ? 'nwse-resize' : 'crosshair';
-                        mouseCheck.addEventListener('change', (ev) => {
-                            mouseResizeEnabled = !!ev.target.checked;
-                            canvas.style.cursor = (mouseResizeEnabled && currentTool === 'resize') ? 'nwse-resize' : 'crosshair';
-                            showNotification('Mouse resize ' + (mouseResizeEnabled ? 'enabled' : 'disabled'));
-                        });
-                    }
-                    container.querySelector('#'+prefix+'apply_resize').addEventListener('click', () => {
-                        const p = parseFloat(container.querySelector('#'+prefix+'resize_pct').value);
-                        if (!isFinite(p) || p <= 0) { showNotification('Invalid percent'); return; }
-                        const s = p / 100; const top = layer || layers[layers.length - 1];
-                        if (!top || top.type !== 'image') { showNotification('Top layer is not an image'); return; }
-                        const origW = parseFloat(container.dataset.origW) || top.w;
-                        const origH = parseFloat(container.dataset.origH) || top.h;
-                        top.w = origW * s; top.h = origH * s; top.x = (canvas.width - top.w) / 2; top.y = (canvas.height - top.h) / 2; redrawCanvasFromLayers(); showNotification('Resized');
-                        container.dataset.origW = '';
-                        container.dataset.origH = '';
-                        container.innerHTML = '<div class="tc-empty">Select a tool (Text, Resize, Crop, Properties) to see controls here</div>';
-                    });
-                    container.querySelector('#'+prefix+'close_resize').addEventListener('click', () => {
-                        // revert preview if any
-                        const top = layer || layers[layers.length - 1];
-                        if (top && top.type === 'image' && container.dataset.origW) {
-                            top.w = parseFloat(container.dataset.origW);
-                            top.h = parseFloat(container.dataset.origH);
-                            top.x = (canvas.width - top.w) / 2; top.y = (canvas.height - top.h) / 2; redrawCanvasFromLayers();
-                        }
-                        container.innerHTML = '<div class="tc-empty">Select a tool (Text, Resize, Crop, Properties) to see controls here</div>'; });
-                } else if (tool === 'crop') {
-                    container.innerHTML = `<div class="control-card"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;color:var(--gray);font-weight:700"><i class="fas fa-crop-alt" style="color:var(--primary)"></i> Crop by Ratio</div>
-                        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
-                            <button class="preset-btn" data-r="1:1" style="padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04)">1:1</button>
-                            <button class="preset-btn" data-r="4:5" style="padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04)">4:5 (IG)</button>
-                            <button class="preset-btn" data-r="3:4" style="padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04)">3:4</button>
-                            <button class="preset-btn" data-r="16:9" style="padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04)">16:9 (YouTube)</button>
-                            <button class="preset-btn" data-r="9:16" style="padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04)">9:16 (TikTok)</button>
-                            <button class="preset-btn" data-r="original" style="padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04)">Original</button>
-                        </div>
-                        <label>Inset %<div style="display:flex;align-items:center;gap:8px"><input id="${prefix}crop_pct" type="range" min="0" max="45" value="0" class="range-slider"><span id="${prefix}crop_val" class="range-value">0</span></div></label>
-                        <div class="tc-actions"><button id="${prefix}apply_crop" class="action-btn action-btn-primary" style="padding:8px 10px">Apply</button><button id="${prefix}close_crop" class="action-btn" style="padding:8px 10px">Close</button></div></div>`;
-
-                    // helper to compute centered crop rect for a target ratio
-                    function computeRatioCrop(origW, origH, targW, targH) {
-                        const targAR = targW / targH;
-                        let sx = 0, sy = 0, sW = origW, sH = origH;
-                        const origAR = origW / origH;
-                        if (Math.abs(origAR - targAR) < 1e-6) {
-                            // same ratio
-                        } else if (origAR > targAR) {
-                            // image is wider -> crop width
-                            sW = Math.round(origH * targAR);
-                            sx = Math.round((origW - sW) / 2);
-                        } else {
-                            // image is taller -> crop height
-                            sH = Math.round(origW / targAR);
-                            sy = Math.round((origH - sH) / 2);
-                        }
-                        return { sx, sy, sW, sH };
-                    }
-
-                    const applyBtn = container.querySelector('#'+prefix+'apply_crop');
-                    const closeBtn = container.querySelector('#'+prefix+'close_crop');
-                    const cropSlider = container.querySelector('#'+prefix+'crop_pct');
-                    const cropVal = container.querySelector('#'+prefix+'crop_val');
-                    const presetBtns = container.querySelectorAll('.preset-btn');
-                    const top = layer || layers[layers.length - 1];
-                    if (!top || top.type !== 'image') { showNotification('Top layer is not an image'); return; }
-
-                    // store originals for revert
-                    container.dataset.origImgW = top.img.naturalWidth;
-                    container.dataset.origImgH = top.img.naturalHeight;
-                    container.dataset.origW = top.w;
-                    container.dataset.origH = top.h;
-                    container.dataset.orig_sx = top.sx || 0;
-                    container.dataset.orig_sy = top.sy || 0;
-                    container.dataset.orig_sW = top.sWidth || top.img.naturalWidth;
-                    container.dataset.orig_sH = top.sHeight || top.img.naturalHeight;
-
-                    // active crop state
-                    let activeCrop = { sx: top.sx || 0, sy: top.sy || 0, sW: top.sWidth || top.img.naturalWidth, sH: top.sHeight || top.img.naturalHeight };
-
-                    function previewCropFromBox(box) {
-                        const origW = parseFloat(container.dataset.origImgW);
-                        const origH = parseFloat(container.dataset.origImgH);
-                        if (!origW || !origH) return;
-                        const sx = box.sx, sy = box.sy, sW = box.sW, sH = box.sH;
-                        // set temporary source crop on layer and adjust display size proportionally
-                        top.sx = sx; top.sy = sy; top.sWidth = sW; top.sHeight = sH;
-                        const ratioW = sW / origW; top.w = (parseFloat(container.dataset.origW) || top.w) * ratioW; top.h = (parseFloat(container.dataset.origH) || top.h) * (sH / origH);
-                        top.x = (canvas.width - top.w) / 2; top.y = (canvas.height - top.h) / 2; redrawCanvasFromLayers();
-                    }
-
-                    // preset handlers
-                    presetBtns.forEach(btn => {
-                        btn.addEventListener('click', (ev) => {
-                            const r = btn.dataset.r;
-                            cropSlider.value = 0; cropVal.textContent = '0';
-                            if (r === 'original') {
-                                // revert to original source
-                                activeCrop = { sx: parseInt(container.dataset.orig_sx), sy: parseInt(container.dataset.orig_sy), sW: parseInt(container.dataset.orig_sW), sH: parseInt(container.dataset.orig_sH) };
-                                previewCropFromBox(activeCrop);
-                                return;
-                            }
-                            const parts = r.split(':');
-                            const targW = parseFloat(parts[0]), targH = parseFloat(parts[1]);
-                            const box = computeRatioCrop(parseFloat(container.dataset.origImgW), parseFloat(container.dataset.origImgH), targW, targH);
-                            activeCrop = box; previewCropFromBox(activeCrop);
-                        });
-                    });
-
-                    // inset slider applies symmetric inset inside current active crop
-                    if (cropSlider) {
-                        cropSlider.addEventListener('input', (ev) => {
-                            cropVal.textContent = ev.target.value;
-                            const p = parseFloat(ev.target.value) / 100;
-                            const oW = activeCrop.sW, oH = activeCrop.sH;
-                            if (!oW || !oH) return;
-                            const newSx = Math.round(activeCrop.sx + (oW * p) / 2);
-                            const newSy = Math.round(activeCrop.sy + (oH * p) / 2);
-                            const newSW = Math.round(oW * (1 - p));
-                            const newSH = Math.round(oH * (1 - p));
-                            previewCropFromBox({ sx: newSx, sy: newSy, sW: newSW, sH: newSH });
-                        });
-                    }
-
-                    applyBtn.addEventListener('click', () => {
-                        // commit the currently previewed crop (top already updated) and clear stored data
-                        container.dataset.origImgW = '';
-                        container.dataset.origImgH = '';
-                        container.dataset.origW = '';
-                        container.dataset.origH = '';
-                        container.dataset.orig_sx = '';
-                        container.dataset.orig_sy = '';
-                        container.dataset.orig_sW = '';
-                        container.dataset.orig_sH = '';
-                        showNotification('Cropped to ratio');
-                        container.innerHTML = '<div class="tc-empty">Select a tool (Text, Resize, Crop, Properties) to see controls here</div>';
-                    });
-                    container.querySelector('#'+prefix+'close_crop').addEventListener('click', () => { container.innerHTML = '<div class="tc-empty">Select a tool (Text, Resize, Crop, Properties) to see controls here</div>'; });
-                } else {
-                    container.innerHTML = '<div class="tc-empty">Select a tool (Text, Resize, Crop, Properties) to see controls here</div>';
-                }
-            }
-
-            setContent(left, 'tc_');
-        }
-
-        // Brightness / contrast sliders
-        const bSlider = document.getElementById('brightnessSlider');
-        const cSlider = document.getElementById('contrastSlider');
-        if (bSlider) bSlider.addEventListener('input', (e) => { brightness = e.target.value; redrawCanvasFromLayers(); });
-        if (cSlider) cSlider.addEventListener('input', (e) => { contrast = e.target.value; redrawCanvasFromLayers(); });
-
-        // collapse toggle handler for left controls
-        const tcToggle = document.getElementById('tc_toggle');
-        if (tcToggle) {
-            tcToggle.addEventListener('click', () => {
-                const container = document.getElementById('toolControls');
-                if (!container) return;
-                const wrapper = container.closest('.tool-controls-wrapper');
-                if (!wrapper) return;
-                wrapper.classList.toggle('collapsed');
-                tcToggle.textContent = wrapper.classList.contains('collapsed') ? '+' : '—';
-            });
-        }
-
-        // Image file handling
-        function handleImageFile(file) {
-            if (!file) return;
-            if (!file.type.startsWith('image/')) { showNotification('Please select an image file'); return; }
-            const reader = new FileReader();
-            reader.onload = function(evt) {
-                const img = new Image();
-                img.onload = function() {
-                    const maxW = canvas.width * 0.8;
-                    const maxH = canvas.height * 0.8;
-                    let w = img.width; let h = img.height;
-                    const r = Math.min(maxW / w, maxH / h, 1);
-                    w *= r; h *= r;
-                    const x = (canvas.width - w) / 2;
-                    const y = (canvas.height - h) / 2;
-                    const id = ++layerIdCounter;
-                    const layer = { id, type: 'image', src: evt.target.result, img, x, y, w, h, rotation: 0, sx: 0, sy: 0, sWidth: img.naturalWidth, sHeight: img.naturalHeight };
-                    layers.push(layer);
-                    redrawCanvasFromLayers();
-                    addLayerThumbnail(layer);
-                    showNotification('Image added');
-                }
-                img.src = evt.target.result;
-            }
-            reader.readAsDataURL(file);
-        }
-
-        imageInput.addEventListener('change', function() {
-            const file = this.files && this.files[0];
-            handleImageFile(file);
-            this.value = '';
-        });
-
-        // Audio file handling (adds audio layer with play control)
-        audioInput.addEventListener('change', function() {
-            const file = this.files && this.files[0];
-            if (!file) return;
-            if (!file.type.startsWith('audio/')) { showNotification('Please select an audio file'); return; }
-            const id = ++layerIdCounter;
-            const src = URL.createObjectURL(file);
-            const layer = { id, type: 'audio', src, name: file.name };
-            layers.push(layer);
-            addLayerThumbnail(layer);
-            showNotification('Audio added');
-            this.value = '';
-        });
-
-
-
-        // helper: format seconds to mm:ss
-        function formatTime(s) {
-            if (!isFinite(s) || s < 0) return '0:00';
-            const m = Math.floor(s / 60);
-            const sec = Math.floor(s % 60);
-            return m + ':' + (sec < 10 ? '0' : '') + sec;
-        }
-
-        // stop any playing audio across layers
-        function stopAllAudio() {
-            layers.forEach(l => {
-                if (l.type === 'audio' && l.audioEl && !l.audioEl.paused) {
-                    try { l.audioEl.pause(); } catch(e) {}
-                }
-            });
-        }
-
-        // split an audio layer at an absolute time (seconds)
-        function splitAudioLayer(layer, splitTime) {
-            if (!layer || layer.type !== 'audio') return;
-            const start = (layer.start !== undefined) ? layer.start : 0;
-            const end = (layer.end !== undefined) ? layer.end : (layer._duration || (layer.audioEl ? layer.audioEl.duration : 0));
-            if (!isFinite(splitTime) || splitTime <= start || splitTime >= end) { showNotification('Cannot split at this point'); return; }
-            const left = { id: ++layerIdCounter, type: 'audio', src: layer.src, name: (layer.name || 'Audio') + ' (part 1)', start: start, end: splitTime, volume: layer.volume };
-            const right = { id: ++layerIdCounter, type: 'audio', src: layer.src, name: (layer.name || 'Audio') + ' (part 2)', start: splitTime, end: end, volume: layer.volume };
-            const idx = layers.findIndex(l => l.id === layer.id);
-            if (idx > -1) {
-                layers.splice(idx, 1, left, right);
-            } else {
-                layers.push(left, right);
-            }
-            // rebuild thumbnails cleanly
-            layersList.innerHTML = '';
-            layers.forEach(addLayerThumbnail);
-            redrawCanvasFromLayers();
-            showNotification('Audio split');
-        }
-
-
-        // layer operations
-        function rotateTopLayer() {
-            if (!layers.length) { showNotification('No layers to rotate'); return; }
-            const top = layers[layers.length - 1];
-            if (top.type !== 'image') { showNotification('Top layer is not an image'); return; }
-            top.rotation = ((top.rotation || 0) + 90) % 360;
-            redrawCanvasFromLayers();
-            showNotification('Rotated 90°');
-        }
-
-        function resizeTopLayer() {
-            if (!layers.length) { showNotification('No layers to resize'); return; }
-            const top = layers[layers.length - 1];
-            if (top.type !== 'image') { showNotification('Top layer is not an image'); return; }
-            showToolControls('resize', top);
-            showNotification('Use the left panel to enter resize percent and Apply');
-        }
-
-        function cropTopLayer() {
-            if (!layers.length) { showNotification('No layers to crop'); return; }
-            const top = layers[layers.length - 1];
-            if (top.type !== 'image') { showNotification('Top layer is not an image'); return; }
-            showToolControls('crop', top);
-            showNotification('Use the left panel to enter crop percent and Apply');
-        }
-
-        function deleteTopLayer() {
-            if (!layers.length) { showNotification('No layers to delete'); return; }
-            const top = layers.pop();
-            // remove thumbnail if exists
-            const el = layersList.querySelector('[data-id="' + top.id + '"]');
-            if (el) el.remove();
-            redrawCanvasFromLayers();
-            showNotification('Layer deleted');
-        }
-
-        // redraw canvas using layers (respect rotation and cropping)
-        function redrawCanvasFromLayers() {
-            ctx.clearRect(0,0,canvas.width,canvas.height);
-            redrawBackground();
-            // apply global filters
-            ctx.filter = `brightness(${brightness}%) contrast(${contrast}%)`;
-            layers.forEach(layer => {
-                if (layer.type === 'image') {
-                    ctx.save();
-                    const cx = layer.x + layer.w / 2;
-                    const cy = layer.y + layer.h / 2;
-                    ctx.translate(cx, cy);
-                    ctx.rotate((layer.rotation || 0) * Math.PI / 180);
-                    const sx = layer.sx || 0; const sy = layer.sy || 0;
-                    const sW = layer.sWidth || layer.img.naturalWidth;
-                    const sH = layer.sHeight || layer.img.naturalHeight;
-                    ctx.drawImage(layer.img, sx, sy, sW, sH, -layer.w / 2, -layer.h / 2, layer.w, layer.h);
-                    ctx.restore();
-
-                    // selection outline for image
-                    if (selectedLayerId === layer.id) {
-                        ctx.save();
-                        ctx.translate(cx, cy);
-                        ctx.rotate((layer.rotation || 0) * Math.PI / 180);
-                        ctx.strokeStyle = 'rgba(99,102,241,0.9)';
-                        ctx.lineWidth = 3;
-                        ctx.setLineDash([6,6]);
-                        ctx.strokeRect(-layer.w/2, -layer.h/2, layer.w, layer.h);
-                        ctx.setLineDash([]);
-                        ctx.restore();
-                    }
-                } else if (layer.type === 'text') {
-                    ctx.save();
-                    ctx.fillStyle = layer.color || '#fff';
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'middle';
-                    ctx.font = (layer.size || 48) + 'px Poppins, Inter, sans-serif';
-                    ctx.fillText(layer.text, layer.x, layer.y);
-
-                    // selection outline for text
-                    if (selectedLayerId === layer.id) {
-                        const metrics = ctx.measureText(layer.text);
-                        const w = metrics.width;
-                        const h = layer.size || 48;
-                        ctx.strokeStyle = 'rgba(99,102,241,0.9)';
-                        ctx.lineWidth = 2;
-                        ctx.setLineDash([6,6]);
-                        ctx.strokeRect(layer.x - w/2 - 6, layer.y - h/2 - 6, w + 12, h + 12);
-                        ctx.setLineDash([]);
-                    }
-
-                    ctx.restore();
-                }
-            });
-            // reset filter
-            ctx.filter = 'none';
-        }
-
-        function addLayerThumbnail(layer) {
-            const item = document.createElement('div');
-            item.dataset.id = layer.id;
-            item.style.display = 'flex';
-            item.style.alignItems = 'center';
-            item.style.justifyContent = 'space-between';
-            item.style.gap = '8px';
-            item.style.padding = '6px';
-            item.style.borderRadius = '8px';
-            item.style.background = 'rgba(255,255,255,0.02)';
-
-            if (layer.type === 'image') {
-                item.innerHTML = `<div style="display:flex;align-items:center;gap:8px"><img src="${layer.src}" style="width:56px;height:42px;object-fit:cover;border-radius:6px;border:1px solid rgba(255,255,255,0.06)"><div style="color:var(--gray);font-weight:600">Image</div></div><div style="display:flex;gap:8px"><button class="action-btn action-btn-secondary select-btn" style="padding:6px 8px;font-size:0.8rem">Select</button><button class="action-btn action-btn-danger del-btn" style="padding:6px 8px;font-size:0.8rem">Delete</button></div>`;
-            } else if (layer.type === 'audio') {
-                item.innerHTML = `<div style="display:flex;align-items:center;gap:8px"><i class="fas fa-music" style="font-size:20px;color:var(--primary)"></i><div style="color:var(--gray);font-weight:600">${layer.name || 'Audio'}</div></div><div style="display:flex;gap:8px"><button class="action-btn action-btn-secondary play-btn" style="padding:6px 8px;font-size:0.8rem">Play</button><button class="action-btn action-btn-danger del-btn" style="padding:6px 8px;font-size:0.8rem">Delete</button></div>`;
-            } else if (layer.type === 'text') {
-                item.innerHTML = `<div style="display:flex;align-items:center;gap:8px"><div style="width:56px;height:42px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.04);border-radius:6px;border:1px solid rgba(255,255,255,0.06)"><span style="font-weight:700;color:${layer.color}">T</span></div><div class="layer-label" style="color:var(--gray);font-weight:600;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${(layer.text || '').slice(0,22)}</div></div><div style="display:flex;gap:8px"><button class="action-btn action-btn-secondary select-btn" style="padding:6px 8px;font-size:0.8rem">Select</button><button class="action-btn action-btn-secondary edit-btn" style="padding:6px 8px;font-size:0.8rem">Edit</button><button class="action-btn action-btn-danger del-btn" style="padding:6px 8px;font-size:0.8rem">Delete</button></div>`;
-            }
-
-            const delBtn = item.querySelector('.del-btn');
-            delBtn.addEventListener('click', () => {
-                const id = item.dataset.id;
-                const idx = layers.findIndex(l => String(l.id) === String(id));
-                if (idx > -1) layers.splice(idx, 1);
-                item.remove();
-                redrawCanvasFromLayers();
-                showNotification('Layer deleted');
-            });
-
-            if (layer.type === 'audio') {
-                const playBtn = item.querySelector('.play-btn');
-                const editBtn = item.querySelector('.edit-btn');
-                // ensure persistent audio element per layer
-                if (!layer.audioEl) layer.audioEl = new Audio(layer.src);
-                const audioEl = layer.audioEl;
-                audioEl.preload = 'metadata';
-                // maintain start/end/volume defaults
-                layer.start = (layer.start !== undefined) ? layer.start : 0;
-                audioEl.volume = (layer.volume !== undefined) ? layer.volume : 1;
-                // when metadata loads, store duration on layer
-                audioEl.addEventListener('loadedmetadata', () => { layer._duration = audioEl.duration; if (!layer.end) layer.end = audioEl.duration; });
-
-                playBtn.addEventListener('click', async () => {
-                    try {
-                        // if paused, start from start or current time
-                        if (audioEl.paused) {
-                            // if before start, set to start
-                            if (audioEl.currentTime < (layer.start || 0) || audioEl.currentTime >= (layer.end || audioEl.duration)) audioEl.currentTime = layer.start || 0;
-                            stopAllAudio(); // stop other audio
-                            audioEl.play();
-                            playBtn.textContent = 'Pause';
-                        } else {
-                            audioEl.pause();
-                            playBtn.textContent = 'Play';
-                        }
-                        audioEl.onended = () => { playBtn.textContent = 'Play'; };
-                        // ensure audio stops at layer.end
-                        audioEl.ontimeupdate = () => {
-                            if (layer.end && audioEl.currentTime >= layer.end) { audioEl.pause(); playBtn.textContent = 'Play'; }
-                        };
-                    } catch (err) { console.error(err); showNotification('Audio play blocked'); }
-                });
-
-                editBtn.addEventListener('click', () => { showToolControls('audio', layer); });
-            } else {
-                const selectBtn = item.querySelector('.select-btn');
-                selectBtn.addEventListener('click', () => {
-                    // make this layer the top by moving it to the end
-                    const id = item.dataset.id;
-                    const idx = layers.findIndex(l => String(l.id) === String(id));
-                    if (idx > -1) {
-                        const [layerObj] = layers.splice(idx, 1);
-                        layers.push(layerObj);
-                        selectedLayerId = layerObj.id;
-                        // switch to select tool visually
-                        document.querySelectorAll('.tool-card').forEach(c => c.classList.remove('active'));
-                        const selCard = document.querySelector('.tool-card[data-tool="select"]');
-                        if (selCard) selCard.classList.add('active');
-                        currentTool = 'select';
-                        canvas.style.cursor = 'move';
-                        redrawCanvasFromLayers();
-                        showNotification('Layer selected');
-                    }
-                });
-
-                // text edit button (if present)
-                const editBtn = item.querySelector('.edit-btn');
-                if (editBtn) {
-                    editBtn.addEventListener('click', () => {
-                        const id = item.dataset.id;
-                        const idx = layers.findIndex(l => String(l.id) === String(id));
-                        if (idx > -1) {
-                            const layerObj = layers[idx];
-                            showToolControls('text', layerObj);
-                        }
-                    });
-                }
-            }
-
-            layersList.prepend(item);
-        }
-
-        // Clear button (guarded)
-        const clearBtnEl = document.getElementById('clearBtn');
-        if (clearBtnEl) {
-            clearBtnEl.addEventListener('click', () => {
-                layers = [];
-                layersList.innerHTML = '';
-                selectedLayerId = null;
-                redrawBackground();
-            });
-        }
-
-        // Export (guarded)
-        const exportBtnEl = document.getElementById('exportBtn');
-        if (exportBtnEl) {
-            exportBtnEl.addEventListener('click', () => {
-                const data = canvas.toDataURL('image/png');
-                const a = document.createElement('a');
-                a.href = data;
-                a.download = 'xenvex-export.png';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                showNotification('Export started');
-            });
-        }
-
-        // Canvas interaction for select/move 🔧
-        canvas.addEventListener('mousedown', (e) => {
-            const pos = getMousePos(e);
-            if (currentTool === 'select') {
-                const res = findLayerAt(pos.x, pos.y);
-                if (!res) { selectedLayerId = null; redrawCanvasFromLayers(); return; }
-                // bring to top
-                const { layer, index } = res;
-                layers.splice(index, 1);
-                layers.push(layer);
-                selectedLayerId = layer.id;
-                isDragging = true;
-                dragOffsetX = pos.x - layer.x;
-                dragOffsetY = pos.y - layer.y;
-                redrawCanvasFromLayers();
-                return;
-            }
-
-            // resize with mouse: when currentTool is 'resize' and mouseResizeEnabled
-            if (currentTool === 'resize' && mouseResizeEnabled) {
-                const res = findLayerAt(pos.x, pos.y);
-                if (!res) { /* nothing to resize */ return; }
-                const { layer, index } = res;
-                if (layer.type !== 'image') { showNotification('Click an image to resize it'); return; }
-                // bring to top
-                layers.splice(index, 1);
-                layers.push(layer);
-                selectedLayerId = layer.id;
-                // init resizing
-                isResizing = true;
-                resizeTargetId = layer.id;
-                resizeStartMouse = pos;
-                resizeStartW = layer.w;
-                resizeStartH = layer.h;
-                canvas.style.cursor = 'nwse-resize';
-                showNotification('Drag to resize the layer (release to apply)');
-                return;
-            }
-        });
-
-        window.addEventListener('mousemove', (e) => {
-            const pos = getMousePos(e);
-            // resizing has priority
-            if (isResizing) {
-                const layer = layers.find(l => l.id === resizeTargetId);
-                if (!layer) return;
-                const dx = pos.x - resizeStartMouse.x;
-                // derive scale from horizontal movement relative to start width
-                let s = 1 + (dx / Math.max(1, resizeStartW));
-                if (s < 0.1) s = 0.1;
-                layer.w = resizeStartW * s;
-                layer.h = resizeStartH * s;
-                // center about previous center
-                layer.x = layer.x - (layer.w - resizeStartW) / 2;
-                layer.y = layer.y - (layer.h - resizeStartH) / 2;
-                redrawCanvasFromLayers();
-                return;
-            }
-
-            if (!isDragging) return;
-            const layer = layers.find(l => l.id === selectedLayerId);
-            if (!layer) return;
-            layer.x = pos.x - dragOffsetX;
-            layer.y = pos.y - dragOffsetY;
-            redrawCanvasFromLayers();
-        });
-
-        window.addEventListener('mouseup', (e) => {
-            if (isDragging) {
-                isDragging = false;
-                showNotification('Layer moved');
-            }
-            if (isResizing) {
-                isResizing = false;
-                resizeTargetId = null;
-                canvas.style.cursor = 'crosshair';
-                showNotification('Resize applied');
-            }
-        });
-
-        canvas.addEventListener('dblclick', (e) => {
-            const pos = getMousePos(e);
-            const res = findLayerAt(pos.x, pos.y);
-            if (res && res.layer.type === 'text') {
-                showToolControls('text', res.layer);
-            }
-        });
-
-        // make canvas and drop zone responsive
-        window.addEventListener('resize', () => {
-            // CSS handles sizing; internal canvas size stays fixed for simplicity
-        });
-
-        // publish editor theme variables to localStorage for other pages to pick up
-        (function(){
-            let prev = '';
-            function publish() {
-                try {
-                    const cs = getComputedStyle(document.documentElement);
-                    const theme = {
-                        primary: cs.getPropertyValue('--primary').trim(),
-                        accent: cs.getPropertyValue('--accent').trim(),
-                        secondary: cs.getPropertyValue('--secondary').trim()
-                    };
-                    const raw = JSON.stringify(theme);
-                    if (raw !== prev) { localStorage.setItem('xenvex_editor_theme', raw); prev = raw; }
-                } catch(e){}
-            }
-            publish();
-            setInterval(publish, 900);
-        })();
-    </script>
-    <script src="theme.js"></script>
-</body>
-</html>
+    // ========== VIDEO CONTROLS ==========
+    document.getElementById('playPauseBtn').addEventListener('click', togglePlayPause);
+    document.getElementById('volumeBtn').add
